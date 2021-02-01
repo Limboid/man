@@ -59,7 +59,7 @@ class InfoNode(Node):
         """Default loss function for individual nodes. Subclasses should not need to override this
         method. All losses are already defined in the Node's state under the key `InfoNode.LOSS_K`.
         However, subclasses may call this method to pass in `extra` information to the `LossInfo`
-        object. By default, `self.name` is included in extra
+        object.
 
         Args:
             states: states of all nodes in the InfoNodePolicy
@@ -68,9 +68,30 @@ class InfoNode(Node):
         Returns:
 `           LossInfo object containing loss and possibly extra information as well.
         """
-        kwargs.update(name=self.name)
-        return tfa.agents.tf_agent.LossInfo(loss=states[self.name][InfoNode.LOSS_K], extra=kwargs)
+        if not kwargs: kwargs = dict()
+        return tfa.agents.tf_agent.LossInfo(loss=states[self.name][InfoNode.LOSS_K],
+                                            extra=kwargs)
 
+    # NEED TO PLUG THIS FUNCTION INTO EVERYTHING INSTEAD OF LOSS
+    def info(self, states):
+        """info is the same as loss"""
+        return self.loss(states)
+
+    def info_spec(self, **kwargs) -> ts.NestedTensorSpec:
+        """info_spec function for info nodes. Subclasses should not need to override this
+        method. The info_spec is already defined in `InfoNode`. However, subclasses may call
+        this method to pass in `extra` TensorSpec key-value pairs. If a subclass has
+
+        Args:
+            **kwargs: optional extra key-value pairs to insert in `info_spec`
+
+        Returns:
+`           LossInfo object containing loss and possibly extra information as well.
+        """
+        if not kwargs: kwargs = dict()
+        loss_spec = tf.TensorSpec(shape=(), name=f'{self.name}_loss_spec')
+        info_spec = tfa.agents.tf_agent.LossInfo(loss=loss_spec, extra=kwargs)
+        return info_spec
 
     @property
     def controllable_latent_mask(self):
