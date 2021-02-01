@@ -1,11 +1,8 @@
-from typing import Optional, List, Mapping, Text, Callable
-from functools import reduce
+from typing import Optional, List, Text
 
 import tensorflow as tf
 import tf_agents as tfa
 import tf_agents.typing.types as ts
-from tf_agents.trajectories import policy_step
-from tf_agents.typing import types
 
 from .nodes import Node, InfoNode
 from .policy import InfoNodePolicy
@@ -22,17 +19,18 @@ class InfoNodeAgent(tfa.agents.TFAgent):
     * train
     """
 
-    def __init__(self,
-        nodes: List[Node],
-        observation_keys_nest: ts.Nested[Text],
-        action_keys_nest: ts.Nested[Text],
-        env_time_step_spec: ts.TimeStep,
-        env_action_spec: ts.NestedTensorSpec,
-        predix_id: Optional[str] = ''):
+    def __init__(
+            self,
+            nodes: List[Node],
+            observation_keys_nest: ts.Nested[Text],
+            action_keys_nest: ts.Nested[Text],
+            env_time_step_spec: ts.TimeStep,
+            env_action_spec: ts.NestedTensorSpec,
+            predix_id: Optional[str] = ''):
         """Initializes an `InfoNodeAgent`.
 
         Args:
-            nodes: All the node_names to use in the agent's policy.
+            nodes: All the info_node_names to use in the agent's policy.
             observation_keys_nest: State keys to assign to the environment observation at the start of `_action`.
             action_keys_nest: Structure to give to values before returning action from the end of `_action`.
             env_time_step_spec: A nest of tf.TypeSpec representing the time_steps. Taken from the environment's
@@ -59,11 +57,13 @@ class InfoNodeAgent(tfa.agents.TFAgent):
             collect_policy=self.info_node_policy,
             train_sequence_length=None)
 
-    def _train(self,
-               experience: ts.NestedTensor,
-               weights: Optional[tf.Tensor] = None,
-               node_names: List[Text] = None,
-               ) -> ts.LossInfo:
+    def _train(
+            self,
+            experience: ts.NestedTensor,
+            weights: Optional[tf.Tensor] = None,
+            info_node_names: List[Text] = None,
+            only_train_top_k: int = 0
+            ) -> tfa.agents.tf_agent.LossInfo:
         """Returns an op to train the agent.
 
         Args:
@@ -76,8 +76,10 @@ class InfoNodeAgent(tfa.agents.TFAgent):
                 containing weights to be used when calculating the total train loss.
                 Weights are typically multiplied elementwise against the per-batch loss,
                 but the implementation is up to the Agent.
-            node_names: Names of node_names to sequentially train. If None, this function trains
-                all node_names sequentially. An empty list, however, trains *no* node_names.
+            info_node_names: Names of info_node_names to sequentially train. If None, this function trains
+                all info_node_names sequentially. An empty list, however, trains *no* `InfoNode`s.
+            only_train_top_k: If not 0, this parameter identifies How many lowest performing `InfoNode`s
+                to select from `info_node_names` for training.
 
         Returns:
             A `LossInfo` containing the loss *before* the training step is taken.
@@ -85,26 +87,33 @@ class InfoNodeAgent(tfa.agents.TFAgent):
             have been calculated with the weights.  Note that each Agent chooses
             its own method of applying weights.
         """
-        if node_names is None:
-            node_names = self.info_node_policy.all_nodes.keys()
-            node_names = list(node_names)
 
-        prev_loss = self._loss(experience=experience, weights=weights, node_names=node_names)
+        if info_node_names is None:
+            info_node_names = self.info_node_policy.info_node_names
 
-        for node_name in node_names:
+        prev_loss = self._loss(experience=experience, weights=weights, info_node_names=info_node_names)
+        info_node_losses = prev_loss.extra  # dict {info_node_name...: scalar_loss...}
+
+        if only_train_top_k != 0:
+            k = min(only_train_top_k, len(info_node_losses))
+            losses_ks = list(info_node_losses.keys())
+            losses_vs = list(info_node_losses.values())
+            info_node_losses_tensor = tf.constant(losses_vs)
+            _, top_k_indeces = tf.math.top_k(info_node_losses_tensor, k=k)
+            info_node_names = [losses_ks[i] for i in top_k_indeces]
+
+        for node_name in info_node_names:
             node = self.info_node_policy.all_nodes[node_name]
-
-            if isinstance(node, InfoNode):
-                node.train(experience[node_name])
+            node.train(experience)
 
         return prev_loss
 
-
-    def _loss(self,
-              experience: ts.NestedTensor,
-              weights: ts.Tensor,
-              node_names: List[Text] = None,
-              ) -> Optional[ts.LossInfo]:
+    def _loss(
+            self,
+            experience: ts.NestedTensor,
+            weights: ts.Tensor,
+            info_node_names: List[Text] = None,
+            ) -> Optional[tfa.agents.tf_agent.LossInfo]:
         """Computes loss.
         This method does not increment self.train_step_counter or upgrade gradients.
         By default, any networks are called with `training=False`.
@@ -118,36 +127,28 @@ class InfoNodeAgent(tfa.agents.TFAgent):
                 containing weights to be used when calculating the total train loss.
                 Weights are typically multiplied elementwise against the per-batch loss,
                 but the implementation is up to the Agent.
-            node_names: Names of node_names to compute loss for. If None, this function evaluates
-                the loss for all node_names. An empty list, however, returns loss for *no* node_names.
+            info_node_names: Names of `InfoNode`s to compute loss for. If None, this function evaluates
+                the loss for all info_node_names. An empty list, however, returns loss for *no* nodes.
 
         Returns:
             A `LossInfo` containing the loss *before* the training step is taken.
             In most cases, if `weights` is provided, the entries of this tuple will
-            have been calculated with the weights.  Note that each Agent chooses
-            its own method of applying weights.
+            have been calculated with the weights. The `extra` member of the `LossInfo`
+            gives a per-infonode breakdown of loss.
         """
 
+        if weights is None:
+            batch_size = experience[self.info_node_policy.info_node_names[0]][InfoNode.LOSS_K].shape[0]
+            weights = tf.ones((batch_size,))
+        if info_node_names is None:
+            info_node_names = self.info_node_policy.info_node_names
 
-        ####### TODO #######
-        ## I modified the infonode.loss function ##
-        ## actually run the trajectory
-        steps = tf.split(expe, axis=1)
-        for step in steps:
-            do stuff()
+        nodewise_loss = {info_node_name: tf.tensordot(
+                                tf.reduce_sum(nodecentric_experience[InfoNode.LOSS_K]),
+                                weights, axis=0)
+                         for info_node_name, nodecentric_experience
+                         in experience.items()
+                         if info_node_name in info_node_names}
+        total_loss = sum(nodewise_loss.values())
 
-        total_loss = 0
-        loss_info = dict()
-        with tf.name_scope(f'{self.name}_loss'):
-
-            for node_name in node_names:
-                node = self.info_node_policy.all_nodes[node_name]
-
-                if isinstance(node, InfoNode):
-                    node_loss = node.loss(experience[node_name])
-                    total_loss = total_loss + node_loss
-                    loss_info[node_name] = node_loss.extra
-
-            if weights is not None:
-                loss = tf.tensordot(total_loss, weights, axis=0, name='total_loss')
-            return ts.LossInfo(loss, None)
+        return tfa.agents.tf_agent.LossInfo(total_loss, nodewise_loss)

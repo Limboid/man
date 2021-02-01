@@ -16,10 +16,11 @@ class Node:
 
     _UNIQUE_NAME_COUNTER = {}
 
-    def __init__(self,
-        state_spec: ts.NestedTensorSpec,
-        name: Optional[Text] = 'Node',
-        subnodes: Optional[List[Node]] = None):
+    def __init__(
+            self,
+            state_spec: ts.NestedTensorSpec,
+            name: Optional[Text] = 'Node',
+            subnodes: Optional[List[Node]] = None):
         """Meant to be called by subclass constructors.
 
         Args:
@@ -32,31 +33,7 @@ class Node:
         self._name = self._make_name_unique(name)
         self._subnodes = subnodes if subnodes is not None else list()
 
-    def bottom_up_priority(self, states: Mapping[Text, ts.Nested]) -> tf.Tensor:
-        """Determine the precedence this Node should recieve in the bottom up hierarchy.
-        Nodes with lower values get executed first.
-
-        Args:
-            states: states of all nodes in the InfoNodePolicy
-
-        Returns:
-            scalar float representing the priority this Node should recieve in the bottom up queue
-        """
-        return tf.constant(0.)
-
-    def top_down_priority(self, states: Mapping[Text, ts.Nested]) -> tf.Tensor:
-        """Determine the precedence this Node should recieve in the bottom up hierarchy.
-        Nodes with higher values get execute first
-
-        Args:
-            states: states of all nodes in the InfoNodePolicy
-
-        Returns:
-            scalar float representing the priority this Node should recieve in the bottom up queue
-        """
-        return tf.constant(0.)
-
-    def bottom_up(self, states: Mapping[Text, ts.Nested]) -> Mapping[Text, ts.Nested]:
+    def bottom_up(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
         """Perception
 
         Generally used to observe information from parents and make appropriate internal
@@ -71,7 +48,7 @@ class Node:
         """
         pass
 
-    def top_down(self, states: Mapping[Text, ts.Nested]) -> Mapping[Text, ts.Nested]:
+    def top_down(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
         """Action
 
         Generally used to make demands to parent nodes. However, nodes can arbitrarily
@@ -86,9 +63,7 @@ class Node:
                 """
         pass
 
-    def initial_state(self,
-                      batch_size: Optional[ts.Int]
-                      ) -> ts.Nested:
+    def initial_state(self, batch_size: Optional[ts.Int]) -> ts.NestedTensor:
         """
 
         Args:
@@ -96,7 +71,7 @@ class Node:
                 in which case no dimensions gets added.
 
         Returns:
-            `Nested` structure (possibly `Tensor`s) to initialize this `Node`'s state with
+            `Nested` structure of `Tensor`s to initialize this `Node`'s state with
                 during training/inference
         """
         shape_fn = (lambda x: x)
