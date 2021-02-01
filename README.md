@@ -1,5 +1,7 @@
 ## Major refactoring ahead
 
+TODO make some helpers for training with the replay buffer where only `trajectory.info` is used. Maybe I need to directly output states as actions and have a middle 'environment' that stores `states` and forwards actions to the actual environment. The replay buffer would be in this middle environment. At this point, it's just simpler to make a custom replay buffer.
+
 - restructure/factor project as follows
 
 All objects are stateless except the `policy` whose state is kept track
