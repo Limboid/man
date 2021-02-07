@@ -1,10 +1,10 @@
 LOSS = 'loss'
 
 LATENT = 'latent'
-LATENT_UNCERTAINTY = 'latent_uncertainty'
+LATENT_ENTROPY = 'latent_uncertainty'
 
 PRED_LATENT = 'pred_latent'
-PRED_LATENT_UNCERTAINTY = 'pred_latent_uncertainty'
+PRED_LATENT_ENTROPY = 'pred_latent_entropy'
 
 TARGET_LATENTS = 'target_latents'
 # storing the list of targets rather than one mixture would result in double computation

@@ -21,7 +21,7 @@ class InfoNode(Node):
 
     def __init__(self,
                  state_spec_extras: Mapping[Text, ts.NestedTensorSpec],
-                 controllable_latent_mask: ts.Nested[bool],
+                 controllable_latent_spec: Optional[ts.NestedTensor],
                  num_children: ts.Int,
                  latent_spec: ts.NestedTensorSpec,
                  subnodes: Optional[List[Node]] = None,
@@ -36,15 +36,12 @@ class InfoNode(Node):
         """
 
         scalar_spec = tf.TensorSpec((1,))
-
-        target_latent_spec = TODO() # remove elements in `latent_spec` that have `False` controllability
-
         state_spec_dict = {
             keys.LOSS: scalar_spec,
             keys.LATENT: latent_spec,
-            keys.LATENT_UNCERTAINTY: scalar_spec,
+            keys.LATENT_ENTROPY: scalar_spec,
             keys.TARGET_LATENTS: num_children * [(
-                scalar_spec, target_latent_spec
+                scalar_spec, controllable_latent_spec
             )]
         }
         state_spec_dict.update(state_spec_extras)
@@ -57,7 +54,7 @@ class InfoNode(Node):
             name=name,
             subnodes=subnodes
         )
-        self._controllable_latent_mask = controllable_latent_mask
+        self._controllable_latent_spec = controllable_latent_spec
 
     def train(self, experience: ts.NestedTensor) -> None:
         """
@@ -68,5 +65,5 @@ class InfoNode(Node):
         raise NotImplementedError('subclasses should define their own training method')
 
     @property
-    def controllable_latent_mask(self):
-        return self._controllable_latent_mask
+    def controllable_latent_spec(self):
+        return self._controllable_latent_spec
