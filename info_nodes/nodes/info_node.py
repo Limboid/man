@@ -1,10 +1,10 @@
-from typing import Optional, Text, List, Mapping
+from typing import Optional, Text, List, Mapping, Union
 
 import tensorflow as tf
-import tf_agents as tfa
 import tf_agents.typing.types as ts
 
 from .node import Node
+from ..utils import keys
 
 
 class InfoNode(Node):
@@ -19,27 +19,39 @@ class InfoNode(Node):
     * `LOSS_K`: 0-dimensional `Tensor` containing its intrinsic loss. Used for weighting training replay.
     """
 
-    LATENT_K = 'LATENT'
-    LOSS_K = 'LOSS'
-
     def __init__(self,
-        state_spec_dict: Mapping[str, ts.NestedTensorSpec],
-        controllable_latent_mask: tf.Tensor,
-        name: Optional[str] = 'InfoNode',
-        subnodes: Optional[List[Node]] = None):
+                 state_spec_extras: Mapping[Text, ts.NestedTensorSpec],
+                 controllable_latent_mask: ts.Nested[bool],
+                 num_children: ts.Int,
+                 latent_spec: ts.NestedTensorSpec,
+                 subnodes: Optional[List[Node]] = None,
+                 name: Optional[str] = 'InfoNode'):
         """Meant to be called by subclass constructors.
 
         Args:
             state_spec_dict: the dict of (potentially further nested) variables to associate with this `Node` during
                 training/inference. Must contain values for keys `InfoNode.LATENT_K` and `InfoNode.LOSS_K`.
-            name: node name to attempt to use for variable scoping.
             subnodes: `Node` objects that are owned by this node.
+            name: node name to attempt to use for variable scoping.
         """
-        assert InfoNode.LATENT_K in state_spec_dict
-        assert InfoNode.LOSS_K in state_spec_dict
+
+        scalar_spec = tf.TensorSpec((1,))
+
+        target_latent_spec = TODO() # remove elements in `latent_spec` that have `False` controllability
+
+        state_spec_dict = {
+            keys.LOSS: scalar_spec,
+            keys.LATENT: latent_spec,
+            keys.LATENT_UNCERTAINTY: scalar_spec,
+            keys.TARGET_LATENTS: num_children * [(
+                scalar_spec, target_latent_spec
+            )]
+        }
+        state_spec_dict.update(state_spec_extras)
 
         if subnodes is None:
             subnodes = list()
+
         super(InfoNode, self).__init__(
             state_spec=state_spec_dict,
             name=name,

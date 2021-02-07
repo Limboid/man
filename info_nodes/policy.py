@@ -41,6 +41,7 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
 
         self._observation_keys_nest = observation_keys_nest
         self._action_keys_nest = action_keys_nest
+        # make QT obs and act InfoNodes which are not part of all_nodes to inject to/from states
 
         state_spec = {node.name: node.state_spec
                       for node in self.all_nodes}
@@ -144,7 +145,8 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
 
     @property
     def info_spec(self) -> types.NestedTensorSpec:
-        """info is the same as `states` at any point in time"""
+        """info is the same as `states` at any point in time.
+        It is used to store recurrent information for training later"""
         return {infonode.name: infonode.state_spec
                 for infonode
                 in self.all_nodes

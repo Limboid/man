@@ -74,15 +74,17 @@ class Node:
             `Nested` structure of `Tensor`s to initialize this `Node`'s state with
                 during training/inference
         """
-        shape_fn = (lambda x: x)
-        if batch_size is not None:
+
+        if batch_size is None:
+            shape_fn = (lambda x: x)
+        else:
             shape_fn = (lambda x: (batch_size,) + x)
 
         return tf.nest.map_structure(shape_fn, self.state_spec)
 
     @property
     def state_spec(self):
-        return self._state_spec
+        return self.state_spec
 
     @property
     def name(self):
