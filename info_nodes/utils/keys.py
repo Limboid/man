@@ -8,7 +8,5 @@ class STATES:
 
     TARGET_LATENTS = 'target_latents'
 
-    ATTENTION_VALUE = 'attention_value'
+    ATTENDED_VALUE = 'attended_value'
     ATTENTION_BIAS = 'attention_bias'
-
-class F_PRED:
