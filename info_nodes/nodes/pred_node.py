@@ -6,6 +6,7 @@ import tensorflow as tf
 import tf_agents.typing.types as ts
 
 from .info_node import InfoNode
+from .info_node import functions
 from ..utils import keys
 
 keras = tf.keras
@@ -40,42 +41,43 @@ class PredNode(InfoNode):
 
         super(PredNode, self).__init__(
             state_spec_extras={
-                keys.PRED_LATENT: latent_spec,
-                keys.PRED_ENERGY: tf.TensorSpec((1,))
+                keys.STATES.PRED_LATENT: latent_spec,
+                keys.STATES.PRED_ENERGY: tf.TensorSpec((1,))
             },
             controllable_latent_spec=latent_spec,
-            latent_spec=latent_spec,
             parent_names=parent_names,
             num_children=num_children,
+            latent_spec=latent_spec,
+            f_parent=functions.f_parent_dict,
+            f_child=functions.f_child_sample_factory(beta=0.),
             subnodes=list(),
             name=name
         )
 
     def bottom_up(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
 
+        parent_energy, parent_latent_dict = self.f_parent(states=states, parent_names=self.parent_names)
+        old_self_latent = states[self.name][keys.LATENT]
+        energy = 0.
+
         # get new latent
-        latent_dist = self.f_abs(dict(latent=states[self.name][keys.LATENT],
-                                      parent_latents={name: states[name][keys.LATENT]
-                                                      for name in self.parent_names}))
+        latent_dist = self.f_abs(dict(latent=old_self_latent, parent_latents=parent_latent_dict))
         latent_sample = latent_dist.sample()
 
-        # determine uncertainty
-        states[self.name][keys.ENERGY] = latent_dist.entropy() + -latent_dist.log_prob(latent_sample) \
-                                         + unpacked_ave([states[name][keys.ENERGY]
-                                                                 for name in self.parent_names])
-
         if self._use_predictive_coding:
-            latent_sample = tf.nest.map_structure((lambda x,y: x-y),
-                                                  states[self.name][keys.PRED_LATENT],
+            latent_sample = tf.nest.map_structure((lambda x, y: x-y),
+                                                  states[self.name][keys.STATES.PRED_LATENT],
                                                   latent_sample)
+        new_self_latent = latent_sample
 
+        # update energy
         # psuedo-KL divergence loss
-        states[self.name][keys.ENERGY] = sum(tf.nest.map_structure((lambda x, y: tf.norm(x - y, 1)),
-                                                                   states[self.name][keys.LATENT],
-                                                                   latent_sample))
+        kld_energy = sum(tf.nest.flatten(tf.nest.map_structure(lambda x, y: tf.reduce_mean(x - y),
+                                                               old_self_latent, new_self_latent)))
+        energy = latent_dist.entropy() + -latent_dist.log_prob(latent_sample) + parent_energy + kld_energy
 
         # update self state
-        states[self.name][keys.LATENT] = latent_sample
+        states[self.name][keys.STATES.LATENT] = new_self_latent
 
         # return updated states
         return states
@@ -86,11 +88,44 @@ class PredNode(InfoNode):
         '''Attract to cluster of neighbor latents only if inside the IQR
         For now, simple attraction places the latent halfway between its
         current position and the local mean.'''
+
+        def find_cluster(nested_data):
+            """Determines cluster properties from nested_data
+
+            Args:
+                nested_data: list of nested points and their probabilistic energy (logits)
+
+            Returns:
+                Tuple (centroid, mean_dist, stddev_dist).
+            """
+            pass
+
+        def gravitate(nest: ts.NestedTensor,
+                      centroid: ts.NestedTensor,
+                      mean_dist: ts.Float,
+                      stddev_dist: ts.Float
+                      ) -> ts.NestedTensor:
+            """Pulls nest element towards cluster centroid
+
+            Args:
+                nest:
+                centroid:
+                mean_dist:
+                stddev_dist:
+
+            Returns:
+
+            """
+            """pulls nest towards the centroid in inside IQR"""
+            pass
+
+        find_cluster()
+
         # TODO add probablistic energy logit weighting to centroid influence
-        self_latent = states[self.name][keys.LATENT]
+        self_latent = states[self.name][keys.STATES.LATENT]
         latent_points = [tf.nest.flatten(f_transl(
-                            dict(latent=states[name][keys.LATENT],
-                                 uncertainty=states[name][keys.ENERGY])).sample())
+                            dict(latent=states[name][keys.STATES.LATENT],
+                                 uncertainty=states[name][keys.STATES.ENERGY])).sample())
                          for name, f_transl in self.neighbor_transl.items()]
         latent_points.append(self_latent)
         latent_centroid = [sum(datum) / len(datum) for datum in zip(*latent_points)]
