@@ -1,10 +1,11 @@
 from typing import Optional, Text, List, Mapping, Callable, Tuple
 
 import tensorflow as tf
-import tf_agents.typing.types as ts
 
-from ..node import Node
+
+from ...utils import types as ts
 from ...utils import keys
+from ..node import Node
 
 
 class InfoNode(Node):
@@ -35,8 +36,9 @@ class InfoNode(Node):
         """Meant to be called by subclass constructors.
 
         Args:
-            state_spec_dict: the dict of (potentially further nested) variables to associate with this `Node` during
-                training/inference. Must contain values for keys `InfoNode.LATENT_K` and `InfoNode.LOSS_K`.
+            state_spec_extras: the dict of (potentially further nested) variables to associate
+                with this `InfoNode` during training/inference. Does not include `keys.STATES.ENERGY`,
+                `LATENT`, or `TARGET_LATENTS`.
             subnodes: `Node` objects that are owned by this node.
             name: node name to attempt to use for variable scoping.
         """
@@ -69,10 +71,10 @@ class InfoNode(Node):
         self.num_children = num_children
         self._controllable_parent_slots = {name: None for name in self.parent_names}
 
-    def build(self, nodes: Mapping[Text, Node]):
-        for name, parent in nodes.items():
+    def build(self, nodes: List[Node]):
+        for parent in nodes:
             if isinstance(parent, InfoNode) and True in tf.nest.flatten(parent.controllable_latent_spec):
-                self._controllable_parent_slots[name] = parent.controllable_latent_slot_index
+                self._controllable_parent_slots[parent.name] = parent.controllable_latent_slot_index
                 parent.controllable_latent_slot_index += 1
                 assert parent.controllable_latent_slot_index <= parent.num_children, \
                     'More children are registering slots to control this parent InfoNode than expected.'

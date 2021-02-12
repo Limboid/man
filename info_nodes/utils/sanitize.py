@@ -1,6 +1,6 @@
 from typing import List, Tuple, Union, TypeVar, Optional
 
-T = TypeVar
+T = TypeVar('T')
 
 def make_list_same_len(*list_or_vars: Union[T, List[T]], assert_len: Optional[int] = None):
     """Makes all `list_or_var` inputs into enqually sized lists.
@@ -47,7 +47,7 @@ def make_list_same_len(*list_or_vars: Union[T, List[T]], assert_len: Optional[in
             ret_lists.append(list_or_var)
         elif isinstance(list_or_var, Tuple):
             ret_lists.append(list(list_or_var))
-        else
+        else:
             ret_lists.append(length * [list_or_var])
 
     return tuple(ret_lists)

@@ -1,13 +1,13 @@
-from typing import Optional, List, Mapping, Text, Callable
+from typing import Optional, List, Mapping, Text
 from functools import reduce
 
 import tensorflow as tf
 import tf_agents as tfa
-import tf_agents.typing.types as ts
-from tf_agents.trajectories import policy_step
-from tf_agents.typing import types
 
+from .utils import types as ts
+from .utils import keys
 from .nodes import Node, InfoNode
+from .nodes._env_interface import ObsInfoNode, ActInfoNode
 
 
 class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
@@ -33,19 +33,32 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
             name: Prefix to use when naming variables in tensorflow backend.
         """
 
-        """convert `info_node_names` into a flattened dictionary of all info_node_names that will be called during
-        training/inference using their unique names for the keys."""
         self.all_nodes = reduce(
-            (lambda flattened_nodes, node: flattened_nodes+[node]+node.subnodes),
+            (lambda flattened_nodes, node: flattened_nodes + [node] + node.subnodes),
             nodes, [])
 
         self._observation_keys_nest = observation_keys_nest
         self._action_keys_nest = action_keys_nest
-        # make QT obs and act InfoNodes which are not part of all_nodes to inject to/from states
+
+        for node in self.all_nodes:
+            if isinstance(node, InfoNode):
+                node.build(self.all_nodes)
+
+        # make special InfoNodes to inject to/from latent states
+        obs_nodes = []
+        for key, obs_n in zip(tf.nest.flatten(observation_keys_nest),
+                              tf.nest.flatten(env_time_step_spec.observation)):
+            obs_nodes.append(ObsInfoNode(key=key, sample_observation=obs_n, all_nodes=self.all_nodes))
+
+        act_nodes = []
+        for key, act_n in zip(tf.nest.flatten(action_keys_nest),
+                              tf.nest.flatten(env_action_spec)):
+            act_nodes.append(ActInfoNode(key=key, sample_action=act_n, all_nodes=self.all_nodes))
+
+        self.all_nodes = obs_nodes + act_nodes + self.all_nodes
 
         state_spec = {node.name: node.state_spec
                       for node in self.all_nodes}
-
         info_spec = self.info_spec
 
         super(InfoNodePolicy, self).__init__(
@@ -74,17 +87,12 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         states = policy_state
 
         # extract obs from time_step according to self._observation_keys_nest then put in keys in state
-        obs_keys = tf.nest.flatten(self._observation_keys_nest)
-        obs_vals = tf.nest.flatten(time_step.observation)
-        obs_dict = {name: obs for name, obs in zip(obs_keys, obs_vals)}
-        states.update(obs_dict)
+        for key, val in zip(tf.nest.flatten(self._observation_keys_nest), tf.nest.flatten(time_step.observation)):
+            states[key][keys.STATES.LATENT] = val
 
         # node-wise bottom up
-        # determine order
         for node in self.all_nodes:
             states = node.bottom_up(states)
-
-        # I can still pass distributions between bottom up and top down, just not the other way around.
 
         # node-wise top down
         for node in reversed(self.all_nodes):
@@ -92,13 +100,13 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
 
         # extract action values from state and structure according to self._action_keys_nest
         act_keys = tf.nest.flatten(self._action_keys_nest)
-        act_vals = [states[k] for k in act_keys]
+        act_vals = [states[k][keys.STATES.LATENT] for k in act_keys]
         action = tf.nest.pack_sequence_as(structure=act_keys, flat_sequence=act_vals)
 
         # get info for training
         info = self.get_info(states)
 
-        return tfa.trajectories.policy_step.PolicyStep(action=action, state=states, info=info)
+        return PolicyStep(action=action, state=states, info=info)
 
     def _distribution(self, time_step: ts.TimeStep, policy_state: types.NestedTensorSpec) -> policy_step.PolicyStep:
         raise NotImplementedError('This policy does not support distribution output')

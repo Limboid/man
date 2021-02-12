@@ -3,11 +3,11 @@ import statistics
 from typing import Optional, List, Text, Mapping
 
 import tensorflow as tf
-import tf_agents.typing.types as ts
 
+from ..utils import types as ts
+from ..utils import keys, nest
 from .info_node import InfoNode
 from .info_node import functions
-from ..utils import keys
 
 keras = tf.keras
 unpacked_ave = statistics.mean  # special name just to make clear when I am wanting the average of an unpacked nest
@@ -72,9 +72,9 @@ class PredNode(InfoNode):
 
         # update energy
         # psuedo-KL divergence loss
-        kld_energy = sum(tf.nest.flatten(tf.nest.map_structure(lambda x, y: tf.reduce_mean(x - y),
-                                                               old_self_latent, new_self_latent)))
+        kld_energy = nest.difference(old_self_latent, new_self_latent)
         energy = latent_dist.entropy() + -latent_dist.log_prob(latent_sample) + parent_energy + kld_energy
+        states[self.name][keys.STATES.ENERGY] = energy
 
         # update self state
         states[self.name][keys.STATES.LATENT] = new_self_latent
@@ -84,110 +84,55 @@ class PredNode(InfoNode):
 
     def top_down(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
 
-        # cluster to neighbors if there is a cluster
-        '''Attract to cluster of neighbor latents only if inside the IQR
-        For now, simple attraction places the latent halfway between its
-        current position and the local mean.'''
-
-        def find_cluster(nested_data):
-            """Determines cluster properties from nested_data
-
-            Args:
-                nested_data: list of nested points and their probabilistic energy (logits)
-
-            Returns:
-                Tuple (centroid, mean_dist, stddev_dist).
-            """
-            pass
-
-        def gravitate(nest: ts.NestedTensor,
-                      centroid: ts.NestedTensor,
-                      mean_dist: ts.Float,
-                      stddev_dist: ts.Float
-                      ) -> ts.NestedTensor:
-            """Pulls nest element towards cluster centroid
-
-            Args:
-                nest:
-                centroid:
-                mean_dist:
-                stddev_dist:
-
-            Returns:
-
-            """
-            """pulls nest towards the centroid in inside IQR"""
-            pass
-
-        find_cluster()
-
-        # TODO add probablistic energy logit weighting to centroid influence
         self_latent = states[self.name][keys.STATES.LATENT]
-        latent_points = [tf.nest.flatten(f_transl(
-                            dict(latent=states[name][keys.STATES.LATENT],
-                                 uncertainty=states[name][keys.STATES.ENERGY])).sample())
-                         for name, f_transl in self.neighbor_transl.items()]
-        latent_points.append(self_latent)
-        latent_centroid = [sum(datum) / len(datum) for datum in zip(*latent_points)]
-        # L1 distance for nested tensors
-        def L1(x: List, y: List):
-            return sum(abs(xi - yi) for xi, yi in zip(x, y)) / len(x)
-        dists = [L1(latent, latent_centroid)
-                 for latent in latent_points]
-        dists_mean = statistics.mean(dists)
-        dists_stddev = statistics.stdev(data=dists, xbar=dists_mean)
-        zscore = dists[-1] / dists_stddev
-        beta = tf.exp(-dists_mean*zscore)
-        # I am not entirely sure multiplying by `dists_mean` will help spot high entropy scenerios
-        # gravitate towards center
-        def beta_update(old, new):
-            return beta * old + (1-beta) * new
-        states[self.name][keys.LATENT] = tf.nest.map_structure(beta_update, self_latent, latent_centroid)
-        # update entropy after cluster gravitation
-        def zscore2entropy(z):
-            p = tf.exp(-(z**2)/2) / (2*math.pi)**0.5
-            infomation = -tf.math.log(p)
-            return infomation
-        states[self.name][keys.ENERGY] = beta * states[self.name][keys.ENERGY] \
-                                         + (1. - beta) * zscore2entropy(zscore)
+        energy = states[self.name][keys.STATES.ENERGY]
+
+        # cluster to neighbors (echo chain style)
+        neighbor_latent_dists = [tf.nest.flatten(f_transl(dict(latent=states[name][keys.STATES.LATENT],
+                                                               energy=states[name][keys.STATES.ENERGY])).sample())
+                                 for name, f_transl in self.neighbor_transl.items()]
+        neighbor_latents = [dist.sample() for dist in neighbor_latent_dists]
+        neighbor_energies = [states[name][keys.STATES.ENERGY] + dist.entropy() + -dist.log_prob(latent) \
+                             - nest.difference(self_latent, latent) for latent, dist, name
+                             in zip(neighbor_latents, neighbor_latent_dists, self.neighbor_transl.keys())]
+        neighbor_energies.append(energy); neighbor_latents.append(self_latent)  # this allows self attention as well
+        neighbor_weights = tf.nn.softmax(tf.constant(neighbor_energies))
+        attended_latent = sum([tf.nest.map_structure(lambda x, y: x*y, weight, latent)
+                               for weight, latent in zip(neighbor_weights, neighbor_latents)])
+        self_latent = attended_latent
 
         # self prediction
-        predicted_latent_dist = self.f_pred(dict(latent=states[self.name][keys.LATENT],
-                                                 entropy=states[self.name][keys.ENERGY]))
+        predicted_latent_dist = self.f_pred(dict(latent=self_latent, energy=energy))
         predicted_latent = predicted_latent_dist.sample()
-        states[self.name][keys.PRED_LATENT] = predicted_latent
-        states[self.name][keys.PRED_ENERGY] = predicted_latent_dist.entropy() \
-                                              + -predicted_latent_dist.log_prob(predicted_latent)
+        energy = energy + predicted_latent_dist.entropy() + -predicted_latent_dist.log_prob(predicted_latent)
 
         # target sampling
-        logits = [-target[0] for target in states[self.name][keys.TARGET_LATENTS]]
-        logits.append(states[self.name][keys.PRED_ENERGY])
-        values = [target[1] for target in states[self.name][keys.TARGET_LATENTS]]
-        values.append(states[self.name][keys.PRED_LATENT])
-
-        # TODO I know this doesn't exist, but I need it. I might just make it
-        target_dist = WeightedEmperical(logits=logits, values=values)
-        target_sample = target_dist.sample()
+        targets = states[self.name][keys.STATES.TARGET_LATENTS]
+        targets.append((energy, predicted_latent))
+        target_energy, target_latent = self.f_child(targets=targets)
 
         # action generation
         action_dist = self.f_act(dict(
-            latent=states[self.name][keys.LATENT],
-            target=target_sample,
-            latent_entropy=states[self.name][keys.ENERGY],
-            target_entropy=target_dist.entropy()+-target_dist.log_prob(target_sample),
-            parent_latents={name: states[name][keys.LATENT]
-                            for name in self.parent_names}
+            latent=self_latent,
+            target_latent=target_latent,
+            latent_energy=energy,
+            target_entropy=target_energy,
+            parent_latents=self.f_parent(states=states, parent_names=self.parent_names)
         ))
         action_sample = action_dist.sample()
-        action_energy = action_dist.entropy() + -action_dist.log_prob(action_sample)
+        energy = energy + action_dist.entropy() + -action_dist.log_prob(action_sample)
 
         # assign parent targets
         for parent_name in self.parent_names:
             if parent_name in action_sample:
                 slot_index = self._controllable_parent_slots[parent_name]
-                states[parent_name][keys.TARGET_LATENTS][slot_index] = (action_energy, action_sample[parent_name])
+                states[parent_name][keys.STATES.TARGET_LATENTS][slot_index] = (energy, action_sample[parent_name])
 
-        # TODO I should update loss here as well
-        states[self.name][keys.ENERGY] += TODO
+        # update states
+        states[self.name][keys.STATES.PRED_LATENT] = predicted_latent
+        states[self.name][keys.STATES.ENERGY] = energy
 
         return states
+
+    def train(self, experience: ts.NestedTensor) -> None:
+        pass

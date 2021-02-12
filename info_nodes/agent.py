@@ -2,8 +2,8 @@ from typing import Optional, List, Text
 
 import tensorflow as tf
 import tf_agents as tfa
-import tf_agents.typing.types as ts
 
+from .utils import types as ts
 from .nodes import Node, InfoNode
 from .policy import InfoNodePolicy
 

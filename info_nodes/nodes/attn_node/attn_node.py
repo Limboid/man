@@ -1,14 +1,12 @@
-from typing import Optional, Text, List, Mapping, Callable, Tuple, Union, Counter
+from typing import Text, List, Mapping, Callable, Tuple, Union, Counter
 
 import tensorflow as tf
-import tf_agents.typing.types as ts
 
+from ...utils import types as ts
 from ...utils import keys
 from ..info_node import InfoNode
 from ..info_node import functions as infonode_funcs
 from . import functions
-
-keras = tf.keras
 
 
 class AttnNode(InfoNode):
@@ -119,7 +117,6 @@ class DenseAttnNode(AttnNode):
     def __init__(self,
                  parent_latent_spec: ts.NestedTensorSpec,
                  parent_names: List[Text],
-                 num_parents: int,
                  num_children: int,
                  td_similarity_metric: Union[int, Text] = 'dotprod',  # 'dotprod' or an integer for Lp similarity
                  td_attention_focus: Text = ATTENTION_FOCUS.DIFFERENT,
@@ -171,4 +168,44 @@ class ConvAttnNode(AttnNode):
     NOTE parent latents must be shaped (B,L1,L2,L3,C) and attention bias (B,w1,w2,w3,C)
     for 3D convolution (or with fewer L and w axes for 2D and 1D convolution)."""
 
-    pass
+    def __init__(self,
+                 parent_latent_spec: ts.NestedTensorSpec,
+                 parent_names: List[Text],
+                 num_children: int,
+                 td_attention_focus: Text = ATTENTION_FOCUS.DIFFERENT,
+                 name='NestedDenseAttentionInfoNode'):
+
+        f_parent = infonode_funcs.f_parent_concat  # don't change this unless you know what you're doing
+        f_bu_attn = functions.f_bu_attn_LP_diff_factory(p=1)
+        f_td_attn = functions.f_td_attn_conv_similarity_factory(
+            ndim=tf.nest.flatten(parent_latent_spec)[0].shape.as_list()-1,
+            strides=1, padding='SAME')
+        f_attend = functions.f_attend_softmax_pool
+
+        if td_attention_focus == ATTENTION_FOCUS.DIFFERENT:
+            def inverted_attn(input, bias):
+                return tf.nest.map_structure(f_td_attn(input=input, bias=-bias), input, bias)
+            f_td_attn = inverted_attn
+
+        tmp_parent_latent = tf.nest.map_structure(tf.zeros, parent_latent_spec)
+        tmp_states = {name: {keys.STATES.LATENT: tmp_parent_latent,
+                             keys.STATES.ENERGY: 0} for name in parent_names}
+        _, tmp_input_parent_latent = f_parent(states=tmp_states, parent_names=parent_names)
+        tmp_bu_attn_map = f_bu_attn(input=tmp_input_parent_latent)
+        tmp_bias = tf.nest.map_structure(lambda t: tf.zeros((t.shape[0], t.shape[-1])), tmp_input_parent_latent)
+        tmp_td_attn_map = f_td_attn(input=tmp_input_parent_latent, bias=tmp_bias)  # shape checking
+        tmp_attended_value = f_attend(input=tmp_parent_latent, attention_map=tmp_bu_attn_map+tmp_td_attn_map)
+        attended_value_spec = tf.nest.map_structure(lambda t: tf.TensorSpec(t.shape), tmp_attended_value)
+        bias_spec = tf.nest.map_structure(lambda t: tf.TensorSpec(t.shape), tmp_bias)
+
+        super(ConvAttnNode, self).__init__(
+            f_parent=f_parent,
+            f_child=infonode_funcs.f_child_sample_factory(),
+            f_bu_attn=f_bu_attn,
+            f_td_attn=f_td_attn,
+            f_attend=functions.f_attend_softmax_pool,
+            attended_value_spec=attended_value_spec,
+            attention_bias_spec=bias_spec,
+            parent_names=parent_names,
+            num_children=num_children,
+            name=name)

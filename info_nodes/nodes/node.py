@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from typing import Optional, List, Text, Mapping
+
 import tensorflow as tf
 
-from typing import Optional, List, Text, Mapping
-import tf_agents.typing.types as ts
+from ..utils import types as ts
 
 
 class Node:

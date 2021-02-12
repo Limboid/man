@@ -1,15 +1,12 @@
 """semantics of functions here are explained in `AttnNode`'s docstring."""
 
-from typing import Optional, Text, List, Mapping, Callable, Tuple, Union, Counter
-from functools import partial
+from typing import Optional, Text, List, Union
 
 import tensorflow as tf
 from tensorflow.python.keras.utils.conv_utils import convert_data_format
 import tf_agents.typing.types as ts
 
-from ...utils import keys, sanitize
-
-keras = tf.keras
+from ...utils import types as ts
 
 
 def f_bu_attn_LP_diff_factory(p: int):
