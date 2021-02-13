@@ -40,10 +40,6 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         self._observation_keys_nest = observation_keys_nest
         self._action_keys_nest = action_keys_nest
 
-        for node in self.all_nodes:
-            if isinstance(node, InfoNode):
-                node.build(self.all_nodes)
-
         # make special InfoNodes to inject to/from latent states
         obs_nodes = []
         for key, obs_n in zip(tf.nest.flatten(observation_keys_nest),
@@ -56,6 +52,10 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
             act_nodes.append(ActInfoNode(key=key, sample_action=act_n, all_nodes=self.all_nodes))
 
         self.all_nodes = obs_nodes + act_nodes + self.all_nodes
+
+        for node in self.all_nodes:
+            if isinstance(node, InfoNode):
+                node.build(self.all_nodes)
 
         state_spec = {node.name: node.state_spec
                       for node in self.all_nodes}

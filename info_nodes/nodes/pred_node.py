@@ -3,6 +3,7 @@ import statistics
 from typing import Optional, List, Text, Mapping
 
 import tensorflow as tf
+import tensorflow_probability as tfp
 
 from ..utils import types as ts
 from ..utils import keys, nest
@@ -23,15 +24,15 @@ class PredNode(InfoNode):
     """
 
     def __init__(self,
-        f_abs: keras.Model,
-        f_pred: keras.Model,
-        f_act: keras.Model,
-        parent_names: List[Text],
-        neighbor_transl: Mapping[Text, keras.Model],
-        num_children: ts.Int,
-        latent_spec: ts.NestedTensorSpec,
-        use_predictive_coding: bool = True,  # don't change this
-        name: Text = 'PredNode'):
+                 f_abs: keras.Model,
+                 f_pred: keras.Model,
+                 f_act: keras.Model,
+                 parent_names: List[Text],
+                 neighbor_transl: Mapping[Text, keras.Model],
+                 num_children: ts.Int,
+                 latent_spec: ts.NestedTensorSpec,
+                 use_predictive_coding: bool = True,  # don't change this
+                 name: Text = 'PredNode'):
 
         self.f_abs = f_abs
         self.f_pred = f_pred
@@ -58,14 +59,13 @@ class PredNode(InfoNode):
 
         parent_energy, parent_latent_dict = self.f_parent(states=states, parent_names=self.parent_names)
         old_self_latent = states[self.name][keys.LATENT]
-        energy = 0.
 
         # get new latent
         latent_dist = self.f_abs(dict(latent=old_self_latent, parent_latents=parent_latent_dict))
         latent_sample = latent_dist.sample()
 
         if self._use_predictive_coding:
-            latent_sample = tf.nest.map_structure((lambda x, y: x-y),
+            latent_sample = tf.nest.map_structure((lambda x, y: x - y),
                                                   states[self.name][keys.STATES.PRED_LATENT],
                                                   latent_sample)
         new_self_latent = latent_sample
@@ -95,9 +95,10 @@ class PredNode(InfoNode):
         neighbor_energies = [states[name][keys.STATES.ENERGY] + dist.entropy() + -dist.log_prob(latent) \
                              - nest.difference(self_latent, latent) for latent, dist, name
                              in zip(neighbor_latents, neighbor_latent_dists, self.neighbor_transl.keys())]
-        neighbor_energies.append(energy); neighbor_latents.append(self_latent)  # this allows self attention as well
+        neighbor_energies.append(energy)
+        neighbor_latents.append(self_latent)  # this allows self attention as well
         neighbor_weights = tf.nn.softmax(tf.constant(neighbor_energies))
-        attended_latent = sum([tf.nest.map_structure(lambda x, y: x*y, weight, latent)
+        attended_latent = sum([tf.nest.map_structure(lambda x, y: x * y, weight, latent)
                                for weight, latent in zip(neighbor_weights, neighbor_latents)])
         self_latent = attended_latent
 
@@ -135,4 +136,52 @@ class PredNode(InfoNode):
         return states
 
     def train(self, experience: ts.NestedTensor) -> None:
+
+        def information_loss(ytrue, ypred):
+            if  isinstance(ytrue, tfp.distributions.Distribution) and isinstance(ypred, tfp.distributions.Distribution):
+                loss = ypred.kl_divergence(ytrue)
+            elif isinstance(ytrue, ts.NestedTensor) and isinstance(ypred, tfp.distributions.Distribution):
+                loss = ypred.log_prob(ytrue)
+            else:
+                return tf.losses.mse(ytrue, ypred)
+            return tf.reduce_sum(loss)
+
+        # this code operates on all timesteps simultaneously so we are going to ro
+        exp = experience
+        exp_next = tf.nest.map_structure(lambda t: tf.roll(t, shift=1, axis=1), exp)
+        exp_prev = tf.nest.map_structure(lambda t: tf.roll(t, shift=-1, axis=1), exp)
+
+        exp_prev = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp_prev)
+        exp = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp)
+        exp_next = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp_next)
+
+        exp_prev_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_prev))
+        exp_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp))
+        exp_next_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_next))
+
+        # train f_trans by association
+        # use positive and negative sampling
+        latent_prev_trans = [f_trans(exp_prev_flat[neighbor_name][keys.STATES.LATENT])
+                             for neighbor_name, f_trans in self.neighbor_transl.items()]
+        latent_trans = [f_trans(exp_flat[neighbor_name][keys.STATES.LATENT])
+                        for neighbor_name, f_trans in self.neighbor_transl.items()]
+        latent_next_trans = [f_trans(exp_next_flat[neighbor_name][keys.STATES.LATENT])
+                             for neighbor_name, f_trans in self.neighbor_transl.items()]
+
+        true_trans = latent_trans
+        false_trans = latent_prev_trans + latent_next_trans
+        err_positive = nest.difference(true_trans, exp_flat)
+
+        loss = err_positive - err_negative
+
+        # I actually want to train all the functions all at once so gradient descent is simultaneous for them all
+
+        for neighbor_name, f_trans in self.neighbor_transl.items():
+            f_trans.fit(x=experience_flat[neighbor_name][keys.STATES.LATENT],
+                        y=experience_flat[self.name][keys.STATES.LATENT])
+
+        # train f_abs and f_pred to minimize predictive error
+
+        # train f_act from inverse modeling trajectory data
+
         pass

@@ -16,6 +16,7 @@ NestedTensor = _types.NestedTensor
 NestedTensorSpec = _types.NestedTensorSpec
 
 TimeStep = _tfa.trajectories.time_step.TimeStep
+StepType = _tfa.trajectories.time_step.StepType
 PolicyStep = _tfa.trajectories.policy_step.PolicyStep
 LossInfo = _tfa.agents.tf_agent.LossInfo # namedtuple(["loss", "extra"])
 

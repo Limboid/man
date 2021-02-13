@@ -4,6 +4,7 @@ import tensorflow as tf
 import tf_agents as tfa
 
 from .utils import types as ts
+from .utils import keys
 from .nodes import Node, InfoNode
 from .policy import InfoNodePolicy
 
@@ -92,7 +93,7 @@ class InfoNodeAgent(tfa.agents.TFAgent):
             info_node_names = self.info_node_policy.info_node_names
 
         prev_loss = self._loss(experience=experience, weights=weights, info_node_names=info_node_names)
-        info_node_losses = prev_loss.extra  # dict {info_node_name...: scalar_loss...}
+        info_node_losses = prev_loss.extra  # structured as: {info_node.name: scalar_loss for info_node in info_nodes}
 
         if only_train_top_k != 0:
             k = min(only_train_top_k, len(info_node_losses))
@@ -138,17 +139,16 @@ class InfoNodeAgent(tfa.agents.TFAgent):
         """
 
         if weights is None:
-            batch_size = experience[self.info_node_policy.info_node_names[0]][InfoNode.LOSS_K].shape[0]
+            batch_size = experience[self.info_node_policy.info_node_names[0]][keys.STATES.ENERGY].shape[0]
             weights = tf.ones((batch_size,))
         if info_node_names is None:
             info_node_names = self.info_node_policy.info_node_names
 
-        nodewise_loss = {info_node_name: tf.tensordot(
-                                tf.reduce_sum(nodecentric_experience[InfoNode.LOSS_K]),
-                                weights, axis=0)
-                         for info_node_name, nodecentric_experience
-                         in experience.items()
-                         if info_node_name in info_node_names}
-        total_loss = sum(nodewise_loss.values())
+        node_loss = {info_node_name: tf.reduce_sum(weights*tf.reduce_sum(
+                        node_experience[keys.STATES.ENERGY], axis=1), axis=0)
+                     for info_node_name, node_experience
+                     in experience.items()
+                     if info_node_name in info_node_names}
+        total_loss = sum(node_loss.values())
 
-        return tfa.agents.tf_agent.LossInfo(total_loss, nodewise_loss)
+        return ts.LossInfo(loss=total_loss, extra=node_loss)
