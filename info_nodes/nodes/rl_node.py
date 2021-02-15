@@ -15,6 +15,7 @@ class RLNode(InfoNode):
 
     """
 
+
     def __init__(self,
                  rl_agent: tfa.agents.TFAgent,
                  input_node_names: List[Text],
@@ -55,6 +56,9 @@ class RLNode(InfoNode):
                 = (0., policy_step.action[output_node_name])
 
         return states
+
+    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
+        return dict()
 
     def train(self, experience: ts.NestedTensor) -> None:
         policy_experience = tfa.utils.nest_utils.prune_extra_keys(self.rl_agent.training_data_spec, experience)

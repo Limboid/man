@@ -253,7 +253,7 @@ InfoNode
 : Organ
   - energy_node_name: str
   - _info_nodes: dict[str,InfoNode]
-  : NavigableModality
+  : SymbolicNode
     "this superclass keeps track of `data` and `loc` in its recurrent state"""
     - __init__ (perception_fns: list[Callable], action_fns: list[Callable]) -> None
     - interactive: bool # can the agent write values to its audio stream, text tape, or image imagination?

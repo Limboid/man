@@ -20,8 +20,8 @@ class Node:
     def __init__(
             self,
             state_spec: ts.NestedTensorSpec,
-            name: Optional[Text] = 'Node',
-            subnodes: Optional[List[Node]] = None):
+            subnodes: Optional[List[Node]] = None,
+            name: Optional[Text] = 'Node'):
         """Meant to be called by subclass constructors.
 
         Args:

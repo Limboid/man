@@ -1,4 +1,4 @@
-import math
+import logging
 import statistics
 from typing import Optional, List, Text, Mapping
 
@@ -32,20 +32,18 @@ class PredNode(InfoNode):
                  num_children: ts.Int,
                  latent_spec: ts.NestedTensorSpec,
                  use_predictive_coding: bool = True,  # don't change this
+                 optimizer: Optional[tf.keras.optimizers.Optimizer] = None,
                  name: Text = 'PredNode'):
 
-        self.f_abs = f_abs
-        self.f_pred = f_pred
-        self.f_act = f_act
-        self.neighbor_transl = neighbor_transl
-        self._use_predictive_coding = use_predictive_coding
+        if optimizer is None:
+            optimizer = tf.keras.optimizers.Adam(learning_rate=2e-3)
 
         super(PredNode, self).__init__(
             state_spec_extras={
                 keys.STATES.PRED_LATENT: latent_spec,
                 keys.STATES.PRED_ENERGY: tf.TensorSpec((1,))
             },
-            controllable_latent_spec=latent_spec,
+            controllable_latent_spec=latent_spec,  # don't change this unless you know what you're doing.
             parent_names=parent_names,
             num_children=num_children,
             latent_spec=latent_spec,
@@ -55,10 +53,19 @@ class PredNode(InfoNode):
             name=name
         )
 
+        self.f_abs = f_abs
+        self.f_pred = f_pred
+        self.f_act = f_act
+        self.neighbor_transl = neighbor_transl
+        self._use_predictive_coding = use_predictive_coding
+        self.optimizer = optimizer
+
+        self.sample_action = None
+
     def bottom_up(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
 
         parent_energy, parent_latent_dict = self.f_parent(states=states, parent_names=self.parent_names)
-        old_self_latent = states[self.name][keys.LATENT]
+        old_self_latent = states[self.name][keys.STATES.LATENT]
 
         # get new latent
         latent_dist = self.f_abs(dict(latent=old_self_latent, parent_latents=parent_latent_dict))
@@ -89,7 +96,8 @@ class PredNode(InfoNode):
 
         # cluster to neighbors (echo chain style)
         neighbor_latent_dists = [tf.nest.flatten(f_transl(dict(latent=states[name][keys.STATES.LATENT],
-                                                               energy=states[name][keys.STATES.ENERGY])).sample())
+                                                               dest_energy=states[self.name][keys.STATES.ENERGY],
+                                                               src_energy=states[name][keys.STATES.ENERGY])).sample())
                                  for name, f_transl in self.neighbor_transl.items()]
         neighbor_latents = [dist.sample() for dist in neighbor_latent_dists]
         neighbor_energies = [states[name][keys.STATES.ENERGY] + dist.entropy() + -dist.log_prob(latent) \
@@ -127,7 +135,10 @@ class PredNode(InfoNode):
         for parent_name in self.parent_names:
             if parent_name in action_sample:
                 slot_index = self._controllable_parent_slots[parent_name]
-                states[parent_name][keys.STATES.TARGET_LATENTS][slot_index] = (energy, action_sample[parent_name])
+                states[parent_name][keys.STATES.TARGET_LATENTS][slot_index] \
+                    = (energy, action_sample[parent_name])
+        if not self.sample_action:
+            self.sample_action = action_sample
 
         # update states
         states[self.name][keys.STATES.PRED_LATENT] = predicted_latent
@@ -135,10 +146,17 @@ class PredNode(InfoNode):
 
         return states
 
-    def train(self, experience: ts.NestedTensor) -> None:
+    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
+        return latent  # because self._controllable_latent_spec = self.latent_spec
 
+    def train(self, experience: ts.NestedTensor) -> None:
+        for i in range(3):
+            logging.log(1, f'PredNode {self.name} begining training epoch {i}')
+            self._train_epoch(experience=experience)
+
+    def _train_epoch(self, experience: ts.NestedTensor) -> None:
         def information_loss(ytrue, ypred):
-            if  isinstance(ytrue, tfp.distributions.Distribution) and isinstance(ypred, tfp.distributions.Distribution):
+            if isinstance(ytrue, tfp.distributions.Distribution) and isinstance(ypred, tfp.distributions.Distribution):
                 loss = ypred.kl_divergence(ytrue)
             elif isinstance(ytrue, ts.NestedTensor) and isinstance(ypred, tfp.distributions.Distribution):
                 loss = ypred.log_prob(ytrue)
@@ -146,42 +164,62 @@ class PredNode(InfoNode):
                 return tf.losses.mse(ytrue, ypred)
             return tf.reduce_sum(loss)
 
-        # this code operates on all timesteps simultaneously so we are going to ro
-        exp = experience
-        exp_next = tf.nest.map_structure(lambda t: tf.roll(t, shift=1, axis=1), exp)
-        exp_prev = tf.nest.map_structure(lambda t: tf.roll(t, shift=-1, axis=1), exp)
+        trainable_vars = [f_trans.trainable_variables
+                          for _, f_trans in self.neighbor_transl.items()] + \
+                         [self.f_abs.trainable_variables,
+                          self.f_pred.trainable_variables,
+                          self.f_act.trainable_variables]
 
-        exp_prev = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp_prev)
-        exp = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp)
-        exp_next = tf.nest.map_structure(lambda t: t[:,1:-1,...], exp_next)
+        with tf.GradientTape() as tape:
+            # this code operates on all timesteps simultaneously so we are going to ro
+            exp = experience
+            exp_next = tf.nest.map_structure(lambda t: tf.roll(t, shift=1, axis=1), exp)
+            exp_prev = tf.nest.map_structure(lambda t: tf.roll(t, shift=-1, axis=1), exp)
 
-        exp_prev_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_prev))
-        exp_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp))
-        exp_next_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_next))
+            exp_prev = tf.nest.map_structure(lambda t: t[:, 1:-1, ...], exp_prev)
+            exp = tf.nest.map_structure(lambda t: t[:, 1:-1, ...], exp)
+            exp_next = tf.nest.map_structure(lambda t: t[:, 1:-1, ...], exp_next)
 
-        # train f_trans by association
-        # use positive and negative sampling
-        latent_prev_trans = [f_trans(exp_prev_flat[neighbor_name][keys.STATES.LATENT])
-                             for neighbor_name, f_trans in self.neighbor_transl.items()]
-        latent_trans = [f_trans(exp_flat[neighbor_name][keys.STATES.LATENT])
-                        for neighbor_name, f_trans in self.neighbor_transl.items()]
-        latent_next_trans = [f_trans(exp_next_flat[neighbor_name][keys.STATES.LATENT])
-                             for neighbor_name, f_trans in self.neighbor_transl.items()]
+            # exp_prev_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_prev))
+            exp_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp))
+            exp_next_flat = nest.flatten_time_into_batch_axis(self.bottom_up(exp_next))
 
-        true_trans = latent_trans
-        false_trans = latent_prev_trans + latent_next_trans
-        err_positive = nest.difference(true_trans, exp_flat)
+            exp_flat_scrambled = tf.nest.map_structure(lambda t: tf.roll(t, shift=t.shape[0]//2, axis=0), exp_flat)
 
-        loss = err_positive - err_negative
+            # train f_trans by association
+            # use positive and negative sampling
+            latent_trans = [f_trans(exp_flat[neighbor_name][keys.STATES.LATENT])
+                            for neighbor_name, f_trans in self.neighbor_transl.items()]
 
-        # I actually want to train all the functions all at once so gradient descent is simultaneous for them all
+            # train f_abs and f_pred to minimize predictive error
+            exp_before_self_bottom_up = exp
+            exp_before_self_bottom_up[self.name][keys.STATES.ENERGY] = exp_prev[self.name][keys.STATES.ENERGY]
+            exp_before_self_bottom_up[self.name][keys.STATES.LATENT] = exp_prev[self.name][keys.STATES.LATENT]
+            exp_flat_before_self_bottom_up = nest.flatten_time_into_batch_axis(exp_before_self_bottom_up)
+            exp_flat_after_bottom_up = self.bottom_up(states=exp_flat_before_self_bottom_up)
+            exp_flat_after_top_down = self.top_down(states=exp_flat_after_bottom_up)
+            self_after_top_down = exp_flat_after_top_down[self.name]
+            # now [keys.STATES.PRED_LATENT] and ENERGY are set
 
-        for neighbor_name, f_trans in self.neighbor_transl.items():
-            f_trans.fit(x=experience_flat[neighbor_name][keys.STATES.LATENT],
-                        y=experience_flat[self.name][keys.STATES.LATENT])
+            # train f_act from inverse modeling trajectory data
+            ideal_parent_targets = {name: self.nodes[name].structure_latent_as_controllable(
+                                        exp_next_flat[name][keys.STATES.LATENT])
+                                    for name in self.parent_names}
+            actual_parent_targets = {name: exp_flat_after_top_down[name][keys.STATES.TARGET_LATENTS]
+                                        [self.controllable_latent_slot_index[name]]
+                                     for name in self.parent_names}
 
-        # train f_abs and f_pred to minimize predictive error
+            error = nest.difference(exp_flat, latent_trans, information_loss) \
+                    - nest.difference(exp_flat_scrambled, latent_trans, information_loss) \
+                    + self_after_top_down[keys.STATES.ENERGY] \
+                    + self_after_top_down[keys.STATES.PRED_ENERGY] \
+                    + nest.difference(exp_next_flat[self.name][keys.STATES.LATENT],
+                                      self_after_top_down[keys.STATES.PRED_LATENT],
+                                      information_loss) \
+                    + nest.difference(ideal_parent_targets,
+                                      actual_parent_targets,
+                                      information_loss)
 
-        # train f_act from inverse modeling trajectory data
-
-        pass
+        # optimize
+        grads = tape.gradient(error, trainable_vars)
+        self.optimizer.apply_gradients(zip(grads, trainable_vars))

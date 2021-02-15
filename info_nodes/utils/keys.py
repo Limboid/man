@@ -10,3 +10,6 @@ class STATES:
 
     ATTENDED_VALUE = 'attended_value'
     ATTENTION_BIAS = 'attention_bias'
+
+    LOCATION = 'location'
+    GLOBAL_WORKSPACE = 'working_data'

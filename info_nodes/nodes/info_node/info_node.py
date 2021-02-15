@@ -39,6 +39,12 @@ class InfoNode(Node):
             state_spec_extras: the dict of (potentially further nested) variables to associate
                 with this `InfoNode` during training/inference. Does not include `keys.STATES.ENERGY`,
                 `LATENT`, or `TARGET_LATENTS`.
+            controllable_latent_spec:
+            parent_names:
+            num_children:
+            latent_spec:
+            f_parent:
+            f_child:
             subnodes: `Node` objects that are owned by this node.
             name: node name to attempt to use for variable scoping.
         """
@@ -70,14 +76,37 @@ class InfoNode(Node):
         self.controllable_latent_slot_index = 0
         self.num_children = num_children
         self._controllable_parent_slots = {name: None for name in self.parent_names}
+        self.nodes = dict()
 
     def build(self, nodes: List[Node]):
+        """Initialize `InfoNode` parent target destination indeces.
+
+        Args:
+            nodes: a list containing all the nodes this `InfoNode` connects to.
+        """
+        nodes = list(set(self.nodes) | set(nodes))
+        self.nodes = {node.name for node in nodes}
+
         for parent in nodes:
             if isinstance(parent, InfoNode) and True in tf.nest.flatten(parent.controllable_latent_spec):
                 self._controllable_parent_slots[parent.name] = parent.controllable_latent_slot_index
                 parent.controllable_latent_slot_index += 1
                 assert parent.controllable_latent_slot_index <= parent.num_children, \
                     'More children are registering slots to control this parent InfoNode than expected.'
+
+    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
+        """Extract a `ts.NestedTensor` describing `states[self.name][keys.STATES.TARGET_LATENTS][:][1]`
+        from one describing `states[self.name][keys.STATES.LATENT]`.
+
+        This is used by subclasses when training. See `PredNode.train` for one implementation.
+
+        Args:
+            latent: The latent tensor to extract controllable subset from.
+
+        Returns:
+            The subset of `latent` that is controllable and structured as `self._controllable_latent_spec`.
+        """
+        raise NotImplementedError()
 
     def train(self, experience: ts.NestedTensor) -> None:
         """Training for all `InfoNode`s.
