@@ -147,7 +147,7 @@ class PredNode(InfoNode):
         return states
 
     def structure_latent_as_controllable(self, latent: ts.NestedTensor):
-        return latent  # because self._controllable_latent_spec = self.latent_spec
+        return latent  # because self._controllable_latent_spec = self.location_spec
 
     def train(self, experience: ts.NestedTensor) -> None:
         for i in range(3):
@@ -155,6 +155,13 @@ class PredNode(InfoNode):
             self._train_epoch(experience=experience)
 
     def _train_epoch(self, experience: ts.NestedTensor) -> None:
+
+        # TODO
+        #  Double-check this code.
+        #  I'm not sure if I kept in mind that
+        #  the experience records what `states` looks like
+        #  at the end on the round - rather than the beginning.
+
         def information_loss(ytrue, ypred):
             if isinstance(ytrue, tfp.distributions.Distribution) and isinstance(ypred, tfp.distributions.Distribution):
                 loss = ypred.kl_divergence(ytrue)

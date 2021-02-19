@@ -13,3 +13,7 @@ class STATES:
 
     # class SYM:
     WORKSPACE = 'workspace'
+
+    class SYMBOLIC:
+        LOC = 'location'
+        DELTA = 'delta_loc'

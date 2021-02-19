@@ -7,6 +7,10 @@ from ...utils import types as ts
 from ...utils import keys
 
 
+def f_parent_no_parents(states: ts.NestedTensor, parent_names: List[Text]):
+    return
+
+
 def f_parent_sample(states: ts.NestedTensor, parent_names: List[Text]):
     # select parent to pool data from by energy weighted bottom-up attention
     parent_energies = [states[name][keys.STATES.ENERGY] for name in parent_names]

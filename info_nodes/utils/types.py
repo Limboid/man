@@ -20,5 +20,5 @@ StepType = _tfa.trajectories.time_step.StepType
 PolicyStep = _tfa.trajectories.policy_step.PolicyStep
 LossInfo = _tfa.agents.tf_agent.LossInfo # namedtuple(["loss", "extra"])
 
-ScalarTensorSpec = _tf.TensorSpec(shape=(),)
+scalar_tensor_spec = _tf.TensorSpec(shape=(), )
 

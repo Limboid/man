@@ -1,7 +1,6 @@
-from typing import Optional, Text, List, Mapping, Callable, Tuple
+from typing import Optional, Text, List, Mapping, Callable, Tuple, Union
 
 import tensorflow as tf
-
 
 from ...utils import types as ts
 from ...utils import keys
@@ -27,7 +26,6 @@ class InfoNode(Node):
                  state_spec_extras: Mapping[Text, ts.NestedTensorSpec],
                  controllable_latent_spec: Optional[ts.NestedTensor],
                  parent_names: List[Text],
-                 num_children: ts.Int,
                  latent_spec: ts.NestedTensorSpec,
                  f_parent: Callable,  # [[ts.NestedTensor, List[Text]], Tuple[tf.Tensor, ts.NestedTensor]]
                  f_child: Callable,  # [[List[Tuple[tf.Tensor, ts.NestedTensor]]], Tuple[tf.Tensor, ts.NestedTensor]]
@@ -36,18 +34,29 @@ class InfoNode(Node):
         """Meant to be called by subclass constructors.
 
         Args:
-            state_spec_extras: the dict of (potentially further nested) variables to associate
+            state_spec_extras: The dict of (potentially further nested) variables to associate
                 with this `InfoNode` during training/inference. Does not include `keys.STATES.ENERGY`,
                 `LATENT`, or `TARGET_LATENTS`.
-            controllable_latent_spec:
-            parent_names:
-            num_children:
-            latent_spec:
-            f_parent:
-            f_child:
+            controllable_latent_spec: `tf.TensorSpec` nest. The subset of this `InfoNode`'s latent that is
+                controllable by its children.
+            parent_names: Names of parent `Node`'s, if any, that this `InfoNode` reads latent states
+                from and possibly also biases by setting their `TARGET_LATENT` state.
+
+                Since the graph must be static to be optimized, please invoke the `build` method with
+                all this `InfoNode`'s parents' python objects. This gives each `InfoNode` an oppertunity
+                to allocate its particular parent-`TARGET_LATENT` interaction slot to prevent data collisions.
+            latent_spec: TensorSpec nest. The structure of this `InfoNode`'s latent which may be observed
+                by other `InfoNode`'s. The `location_spec` is also used to initialize this `InfoNode`'s
+                `states[self.name][keys.STATES.LATENT]` with `tf.zeros` in matching shape.
+            f_parent: Function that collects/selects parent information for this `InfoNode` on `bottom_up`.
+            f_child: Function that collects/selects child information to utilize during `top_down`.
             subnodes: `Node` objects that are owned by this node.
             name: node name to attempt to use for variable scoping.
         """
+
+        # TODO: `num_children` should not be a necesary variable.
+        #       It should be possible to get this property after
+        #       `build` is called.
 
         scalar_spec = tf.TensorSpec((1,))
         state_spec_dict = {
@@ -74,7 +83,6 @@ class InfoNode(Node):
 
         # used for controllable latent slot-based tracking. See `build` below
         self.controllable_latent_slot_index = 0
-        self.num_children = num_children
         self._controllable_parent_slots = {name: None for name in self.parent_names}
         self.nodes = dict()
 
