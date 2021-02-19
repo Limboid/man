@@ -1,15 +1,15 @@
 class STATES:
     ENERGY = 'energy'
-
     LATENT = 'latent'
-
-    PRED_LATENT = 'pred_latent'
-    PRED_ENERGY = 'pred_latent_energy'
-
     TARGET_LATENTS = 'target_latents'
 
+    # class PRED:
+    PRED_ENERGY = 'pred_latent_energy'
+    PRED_LATENT = 'pred_latent'
+
+    # class ATTN:
     ATTENDED_VALUE = 'attended_value'
     ATTENTION_BIAS = 'attention_bias'
 
-    LOCATION = 'location'
-    GLOBAL_WORKSPACE = 'working_data'
+    # class SYM:
+    WORKSPACE = 'workspace'

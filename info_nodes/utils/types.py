@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow as _tf
 import tf_agents as _tfa
 from tf_agents.typing import types as _types
 
@@ -19,4 +19,6 @@ TimeStep = _tfa.trajectories.time_step.TimeStep
 StepType = _tfa.trajectories.time_step.StepType
 PolicyStep = _tfa.trajectories.policy_step.PolicyStep
 LossInfo = _tfa.agents.tf_agent.LossInfo # namedtuple(["loss", "extra"])
+
+ScalarTensorSpec = _tf.TensorSpec(shape=(),)
 
