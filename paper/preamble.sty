@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\input{preamble.sty}%%%%
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\newcommand{\RR}{I\!\!R} % real numbers
+\newcommand{\Nat}{I\!\!N} % natural numbers
+\newcommand{\CC}{I\!\!\!\!C} % complex numbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% https://gist.github.com/bmmalone/db1aed13ed4e8de967a7e431f7f95bfa %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% make writing commands easier
+\usepackage{xparse}
+
+% colored text
+\usepackage{color}
+
+% include eps, pdf graphics
+\usepackage{graphicx}
+
+% use "H" for floats
+\usepackage{float}
+
+% avoid "too many unprocessed floats" error
+\usepackage{morefloats}
+
+% FloatBarrier to ensure figures do not jump to different sections
+\usepackage{placeins}
+
+% properly handle spaces after defines
+\usepackage{xspace}
+
+% in case we need to span rows in our tables
+\usepackage{multirow}
+
+% tables across multiple pages
+\usepackage{ltablex}
+
+% nice-looking tables
+\usepackage{booktabs}
+
+% easy centering for tables
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% math
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+
+% more math
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+                     \hbox{\scriptsize.}\hbox{\scriptsize.}}}%
+                     =}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\left(#1\right)}}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+%%%
+% KL-divergence
+%
+%   \kld{p}{q}
+%%%
+
+\DeclarePairedDelimiterX{\infdivx}[2]{(}{)}{%
+  #1\;\delimsize|\delimsize|\;#2%
+}
+\newcommand{\kld}[2]{\ensuremath{D_{KL}\infdivx{#1}{#2}}\xspace}
+
+%%%
+% Expectation
+%
+%  \expectation{X}
+%
+%    or
+%
+%  \expectation[y]{X}
+%%%
+
+\DeclareDocumentCommand \expectation { o m } {%
+  \ensuremath{\mathbb{E}%
+  \IfValueTF {#1} {%
+    _{#1} \left[ #2 \right]%
+  }{%
+    \left[ #2 \right]%
+  }%
+  }\xspace%
+}
+
+
+% mono (\|), bold (\!) and fancy (\*) letters
+\def\|#1{\ensuremath{\mathtt{#1}}}
+\def\!#1{\ensuremath{\mathbf{#1}}}
+\def\*#1{\ensuremath{\mathcal{#1}}}
+
+\newcommand\todo[1]{\textcolor{red}{[TODO: #1]}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
