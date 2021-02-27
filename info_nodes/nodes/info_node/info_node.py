@@ -24,7 +24,6 @@ class InfoNode(Node):
 
     def __init__(self,
                  state_spec_extras: Mapping[Text, ts.NestedTensorSpec],
-                 controllable_latent_spec: Optional[ts.NestedTensor],
                  parent_names: List[Text],
                  latent_spec: ts.NestedTensorSpec,
                  f_parent: Callable,  # [[ts.NestedTensor, List[Text]], Tuple[tf.Tensor, ts.NestedTensor]]
@@ -37,8 +36,6 @@ class InfoNode(Node):
             state_spec_extras: The dict of (potentially further nested) variables to associate
                 with this `InfoNode` during training/inference. Does not include `keys.STATES.ENERGY`,
                 `LATENT`, or `TARGET_LATENTS`.
-            controllable_latent_spec: `tf.TensorSpec` nest. The subset of this `InfoNode`'s latent that is
-                controllable by its children.
             parent_names: Names of parent `Node`'s, if any, that this `InfoNode` reads latent states
                 from and possibly also biases by setting their `TARGET_LATENT` state.
 
@@ -63,7 +60,7 @@ class InfoNode(Node):
             keys.STATES.ENERGY: scalar_spec,
             keys.STATES.LATENT: latent_spec,
             keys.STATES.TARGET_LATENTS: num_children * [(
-                scalar_spec, controllable_latent_spec
+                scalar_spec, latent_spec
             )]
         }
         state_spec_dict.update(state_spec_extras)
@@ -76,7 +73,6 @@ class InfoNode(Node):
             name=name,
             subnodes=subnodes
         )
-        self._controllable_latent_spec = controllable_latent_spec
         self.parent_names = parent_names
         self.f_parent = f_parent
         self.f_child = f_child
