@@ -8,8 +8,8 @@ Float = _types.Float
 
 Seed = _types.Seed
 
-Tensor = tf.Tensor
-TensorSpec = tf.TensorSpec
+Tensor = _tf.Tensor
+TensorSpec = _tf.TensorSpec
 
 Nested = _types.Nested
 NestedTensor = _types.NestedTensor
