@@ -7,7 +7,7 @@ import tensorflow_probability as tfp
 
 from ..utils import types as ts
 from ..utils import keys, nest
-from .info_node import InfoNode
+from . import InfoNode
 from .info_node import functions
 
 keras = tf.keras

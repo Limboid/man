@@ -1,7 +1,7 @@
 from typing import Mapping, Text
 
 from ..utils import types as ts
-from .node import Node
+from . import Node
 
 
 class LambdaNode(Node):

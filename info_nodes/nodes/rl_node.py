@@ -4,7 +4,8 @@ import tf_agents as tfa
 
 from ..utils import types as ts
 from ..utils import keys
-from .info_node import InfoNode, functions
+from . import InfoNode
+from .info_node import functions
 
 
 class RLNode(InfoNode):

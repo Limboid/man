@@ -4,7 +4,7 @@ import tensorflow as tf
 
 from ...utils import types as ts
 from ...utils import keys
-from ..node import Node
+from .. import Node
 
 
 class InfoNode(Node):
