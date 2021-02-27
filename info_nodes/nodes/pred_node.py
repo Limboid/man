@@ -146,9 +146,6 @@ class PredNode(InfoNode):
 
         return states
 
-    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
-        return latent  # because self._controllable_latent_spec = self.location_spec
-
     def train(self, experience: ts.NestedTensor) -> None:
         for i in range(3):
             logging.log(1, f'PredNode {self.name} begining training epoch {i}')

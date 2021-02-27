@@ -151,9 +151,6 @@ class SymbolLocNode(InfoNode):
 
         return states
 
-    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
-        return latent[keys.STATES.SYMBOLIC.DELTA]
-
 
 class SymbolProcessingNode(InfoNode):
     """Child class for symbolic processing. This node reads and/or writes to a subset of its container class' global

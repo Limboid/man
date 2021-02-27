@@ -102,20 +102,6 @@ class InfoNode(Node):
                 assert parent.controllable_latent_slot_index <= parent.num_children, \
                     'More children are registering slots to control this parent InfoNode than expected.'
 
-    def structure_latent_as_controllable(self, latent: ts.NestedTensor):
-        """Extract a `ts.NestedTensor` describing `states[self.name][keys.STATES.TARGET_LATENTS][:][1]`
-        from one describing `states[self.name][keys.STATES.LATENT]`.
-
-        This is used by subclasses when training. See `PredNode.train` for one implementation.
-
-        Args:
-            latent: The latent tensor to extract controllable subset from.
-
-        Returns:
-            The subset of `latent` that is controllable and structured as `self._controllable_latent_spec`.
-        """
-        raise NotImplementedError()
-
     def train(self, experience: ts.NestedTensor) -> None:
         """Training for all `InfoNode`s.
 
