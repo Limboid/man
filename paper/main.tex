@@ -50,7 +50,9 @@
 
 \section{Introduction}
 
-Our objective is not "can we make artificial general intelligence?`` but “how general can we make artificial intelligence?” Intelligence has been defined as “an agent’s ability to achieve goals in a wide range of environments.” (Legg and Hutter, 2007 CITE) and “skill-acquisition efficiency” with respect to available information (Chollet 2019 CITE). Although these definitions imply there is no upper bound on generality and that artificial general intelligence is the superlative sense is an illusion (Human ne AGI CITE), they do provide a metric we can put to our informal understanding of the concept and a reward signal to follow.
+
+REMOVE THIS FIRST PARAGRAPH
+Our objective is not "can we make artificial general intelligence?`` but “how general can we make artificial intelligence?” Intelligence has been defined as “an agent’s ability to achieve goals in a wide range of environments.” (Legg and Hutter, 2007 CITE) and “skill-acquisition efficiency” with respect to available information (Chollet 2019 CITE). Although these definitions imply there is no upper bound on generality and that artificial general intelligence in the superlative sense is an illusion (Human ne AGI CITE), they do provide a metric we can put to our informal understanding of the concept and a reward signal to follow.
 
 The life sciences and AI disciplines have identified numerous techniques underlying principles of intelligence which lead to performance increase over a diverse array of tasks. This work aims to consolidate some of those principles into a working implementation of task-agnostic, open-ended artificial ‘general’ intelligence together with experiments and ablation studies. Our paper is organized as follows: section 2 reviews key principles of intelligence; section 3 composes those critical ideas into a theoretical AI system and describes its software implementation; section 4 presents experiments with observations over a diverse set of open-ended learning environments and numerous close-ended tasks and benchmarks and also describes ablation studies; section 5 presents descriptive and comparative analyses of individual experimental results; and finally, section 6 gives a general discussion of this work along with its broader impact and a conclusion. 
 
@@ -67,10 +69,10 @@ When its expectation is taken over the event space, probabilistic energy becomes
 
 These mathematically pure yet rich ideas from information theory, give basis to formalize connections across numerous domains of science and identify the overarching motif of free energy minimization. With respect to any particular system, free energy is the complement of bound and entropic energy. For instance, note the similarity between Gibbs free energy $G$, Helmholtz free energy $F$, grand free energy $\phi$, and Kullback-Leibler divergence $\kld{p}{q}$:
 \begin{alignat*}{4}
-& G    && \equiv && E + PV \quad && - TS \\
-& F    && \equiv && E      \quad && - TS \\
-& \phi && \equiv && E      \quad && - TS - \mu N \\
-& \underbrace{\kld{p}{q}}_{\text{free energy}} && \equiv && \underbrace{H(p,q)}_{\text{bound energy}} \quad && \underbrace{- H(p)}_{\text{entropy}}
+& G    && \equiv && {} E + PV \quad && - TS \\
+& F    && \equiv && {} E      \quad && - TS \\
+& \phi && \equiv && {} E      \quad && - TS - \mu N \\
+& \underbrace{\kld{p}{q}}_{\text{free energy}} && \equiv && {} \underbrace{H(p,q)}_{\text{bound energy}} \quad && \underbrace{- H(p)}_{\text{entropy}}
 \end{alignat*}
 In all domains of definition, the universe fights free energy. This involves entropy maximization. For instance, the Casmir effect provides an attractive or repulsive force without invoking any of the fundamental forces. Instead it influences particles in a way that directly maximizes the uniformity and entropy of space. The principle of least action states that XXXX.
 
