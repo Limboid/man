@@ -106,7 +106,7 @@ class ATTENTION_FOCUS:
     SAME = 'same'
 
 
-class DenseAttnNode(AttnNode):
+class DenseAttnNode(AttnNode): # is this just 1x1x1... convolution?
     """Attends to the last dimension of dense vectors by bottom up and top down processes:
     - Bottom up attention is determined by the L1 norm of the last dimension.
     - Top down attention is determined by the LP or dot-product similarity/difference between
