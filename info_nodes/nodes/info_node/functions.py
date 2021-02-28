@@ -47,6 +47,8 @@ def f_parent_single_parent(states: ts.NestedTensor, parent_names: List[Text])
     parent_state = states[parent_names[0]]
     return parent_state[keys.STATES.ENERGY], parent_state[keys.STATES.LATENT]
 
+def f_child_no_children(targets: List[Tuple[tf.Tensor, ts.NestedTensor]]) -> ts.NestedTensor:
+    return None
 
 def f_child_sample_factory(beta: ts.Float = 0):
     """
@@ -56,7 +58,7 @@ def f_child_sample_factory(beta: ts.Float = 0):
     Returns:
         function `f_child_sample`
     """
-    def f_child_sample(targets: List[Tuple[tf.Tensor, ts.NestedTensor]]):
+    def f_child_sample(targets: List[Tuple[tf.Tensor, ts.NestedTensor]]) -> ts.NestedTensor:
         # select bias for top_down attention
         dist = tfd.OneHotCategorical(logits=[beta-energy for energy, latent in targets])
         sample = dist.sample()

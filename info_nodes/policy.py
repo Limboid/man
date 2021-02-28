@@ -7,7 +7,7 @@ import tf_agents as tfa
 from .utils import types as ts
 from .utils import keys
 from .nodes import Node, InfoNode
-from .nodes._env_interface import ObsInfoNode, ActInfoNode
+from .nodes._env_interface_wrappers import ObsWrapperNode, ActWrapperNode
 
 
 class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
@@ -41,15 +41,15 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         self._action_keys_nest = action_keys_nest
 
         # make special InfoNodes to inject to/from latent states
-        obs_nodes = []
-        for key, obs_n in zip(tf.nest.flatten(observation_keys_nest),
-                              tf.nest.flatten(env_time_step_spec.observation)):
-            obs_nodes.append(ObsInfoNode(key=key, sample_observation=obs_n, all_nodes=self.all_nodes))
+        obs_nodes: List[Node] = []
+        for key, obs_spec in zip(tf.nest.flatten(observation_keys_nest),
+                                 tf.nest.flatten(env_time_step_spec.observation)):
+            obs_nodes.append(ObsWrapperNode(key=key, obs_spec=obs_spec))
 
-        act_nodes = []
-        for key, act_n in zip(tf.nest.flatten(action_keys_nest),
-                              tf.nest.flatten(env_action_spec)):
-            act_nodes.append(ActInfoNode(key=key, sample_action=act_n, all_nodes=self.all_nodes))
+        act_nodes: List[Node] = []
+        for key, act_spec in zip(tf.nest.flatten(action_keys_nest),
+                                 tf.nest.flatten(env_action_spec)):
+            act_nodes.append(ActWrapperNode(key=key, act_spec=act_spec))
 
         self.all_nodes = obs_nodes + act_nodes + self.all_nodes
 

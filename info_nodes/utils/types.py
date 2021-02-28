@@ -1,3 +1,5 @@
+import typing as _ty
+
 import tensorflow as _tf
 import tf_agents as _tfa
 from tf_agents.typing import types as _types
@@ -22,3 +24,5 @@ LossInfo = _tfa.agents.tf_agent.LossInfo # namedtuple(["loss", "extra"])
 
 scalar_tensor_spec = _tf.TensorSpec(shape=(), )
 
+# to represent rectangular shape boundaries
+Shape = _ty.Union[Tensor, TensorSpec, _tf.TensorShape]

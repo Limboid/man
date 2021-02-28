@@ -43,9 +43,7 @@ class PredNode(InfoNode):
                 keys.STATES.PRED_LATENT: latent_spec,
                 keys.STATES.PRED_ENERGY: tf.TensorSpec((1,))
             },
-            controllable_latent_spec=latent_spec,  # don't change this unless you know what you're doing.
             parent_names=parent_names,
-            num_children=num_children,
             latent_spec=latent_spec,
             f_parent=functions.f_parent_dict,
             f_child=functions.f_child_sample_factory(beta=0.),
