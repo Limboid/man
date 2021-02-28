@@ -175,8 +175,8 @@ class PredNode(InfoNode):
         with tf.GradientTape() as tape:
             # this code operates on all timesteps simultaneously so we are going to ro
             exp = experience
-            exp_next = tf.nest.map_structure(lambda t: tf.roll(t, shift=1, axis=1), exp)
-            exp_prev = tf.nest.map_structure(lambda t: tf.roll(t, shift=-1, axis=1), exp)
+            exp_next = tf.nest.map_structure(lambda t: tf.roll(t, shift=-1, axis=1), exp)
+            exp_prev = tf.nest.map_structure(lambda t: tf.roll(t, shift=1, axis=1), exp)
 
             exp_prev = tf.nest.map_structure(lambda t: t[:, 1:-1, ...], exp_prev)
             exp = tf.nest.map_structure(lambda t: t[:, 1:-1, ...], exp)
