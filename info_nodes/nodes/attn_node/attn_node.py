@@ -39,6 +39,9 @@ class AttnNode(InfoNode):
             name=name)
 
         self.observed_node_name = observed_node_name
+        ## TODO: when nodes are treated like workspaces, they are directly modified by their attn and helpers
+        ##       but when it is a prednode that is being attended to, it's value should not be changed w/o
+        ##       using f_act. (Also f_act expects f_parent == f_parent_dict.)
 
     def train(self, experience: ts.NestedTensor) -> None:
         pass
