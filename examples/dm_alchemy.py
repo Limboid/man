@@ -5,7 +5,7 @@ from __future__ import print_function
 import sys
 sys.path.insert(0, "/home/jacob/PycharmProjects/info-nodes/")
 
-import info_nodes
+import pgi
 
 import tensorflow as tf
 import tf_agents as tfa

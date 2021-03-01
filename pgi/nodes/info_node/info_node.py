@@ -39,7 +39,7 @@ class InfoNode(Node):
                 `LATENT`, or `TARGET_LATENTS`.
             parent_names: Names of parent `Node`'s, if any, that this `InfoNode` reads latent states
                 from and possibly also biases by setting their `TARGET_LATENT` state. If `None`, defaults
-                to `info_nodes.functions.f_parent_no_parents`.
+                to `pgi.functions.f_parent_no_parents`.
 
                 Since the graph must be static to be optimized, please invoke the `build` method with
                 all this `InfoNode`'s parents' python objects. This gives each `InfoNode` an oppertunity
