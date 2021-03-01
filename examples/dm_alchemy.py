@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import sys
-sys.path.insert(0, "/home/jacob/PycharmProjects/info-nodes/")
+sys.path.insert(0, "//")
 
 import pgi
 
