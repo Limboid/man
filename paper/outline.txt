@@ -1,0 +1,281 @@
+Predictive General Intelligence
+
+
+Principles of intelligence
+Energetically grounded information -- in nature and AI
+→ Intelligence begins with information which in turn depends on energy
+information theory equates the two
+Examples:
+signal coding directly links physical and probabilistic energy
+Free energy minimization an overarching theme
+energy minimization → complexity minimization, entropy maximization
+ball rolls down the hill
+virtual particle
+principle of least action
+Casmir effect
+partial pressures equalized
+Life represents a defiance of this trend, yet even in its struggle for survival, living systems continually minimize their energy consumptions
+intrinsic intelligence of musculoskeletal system
+obtain and digest food without type 1 or 2 allostasis
+cardiovascular indicators of energy not sustained:
+blood sugar
+blood pressure
+free fatty acids
+cortisol
+cost estimation (psychology)
+the brain and neuronal free energy principle
+unstructured neurons self-organize into complex, adapted behavior
+The lesson for AI: keep energetic demands in mind at all times
+Most machine learning systems today are quite unintelligent and have made little progress in intellectual efficiency
+They just require massive amounts of data and energy
+Discuss consequences
+carbon footprint
+data collection
+and if we extend energy minimization to information minimization, impose a penalty for
+data collection
+training epochs and batches
+model surprise (runtime); model expectation (exploration)
+Make the energy demands explicit
+RL envs not like natural world where agent has infinite energy to move around
+Directly penalize virtual env energy, compute energy, and information energy
+Eating -- in nature and AI
+Obtain food
+select what to eat
+animals forage or hunt
+Most AI systems today are infants in this regard; they must be spoon fed to learn.
+avoid poisoning
+eat in moderation
+more is not always better
+Digest food
+parasympathetic ‘rest and digest’ is good; but not from predators
+neither too slow nor fast
+keep data fresh
+implies continual learning
+get the most out of data
+energy is always abundant; but not always in a useful form
+be adapted to get most information out of most general data distribution (uniform)
+Nested optimization -- in nature and AI
+→ the brain observes a similar pattern of energetic optimization in loops of perception, cognition, action - but ove a spectrum of frequencies
+Animals
+Indirect optimization
+starts with priors
+optimal to begin with
+organism never sees reward
+dna is learning
+begins carefree; ends survival oriented (both genes and organism)
+passes on a reward system and other learning mechanisms to organism
+Direct optimization
+organism receives dense reward throughout life
+brain is learning
+changes to reward system alter behavior; critically responsive to thoughts
+metabolic taste
+pregnancy
+Reward system robust to tampering
+difficult to predict
+non-idempotent
+sometimes just random
+passes on information substrate to thoughts
+Imagined optimization
+no reward; allocentric cognitive optimization
+thoughts are learning
+Allows us to “stand on the shoulders of giants”
+Machines
+Indirect optimization
+humans supply the priors
+watch the plumbing
+information theoretic solutions superior to heuristics
+kl divergence or cross entropy loss
+cross entropy complexity regularization
+weight regularization vs mutual information regularization
+time consuming
+Make AI systems open ended so they can reach to the very bottom of the optimization loop and ease our burden.
+economics and complexity are the survival factors
+this promotes open-ended growth, but not fully automated
+direct optimization
+RL recognizes reward shaping
+“give me the reward function and I’ll tell you how it works”
+In classic DL, the loss function + dataset is the energetic unintelligent component while the neural network is the information efficient, intelligent component.
+Reward system often “cheats”
+very predictable
+some work found that random rewards teach greedy agents to explore.
+We generally fail to implement lifelong learning
+imagined optimization
+in-context, few shot, zero shot learning
+language powerful tool for imagination
+inverse language modeling
+still language may not be most efficient for representation
+One of the key challenges to this is the binding problem
+First, we don’t fully understand the natural solution
+explain: segmentation, representation, composition
+Second, we have difficulty extracting a solution
+Is there a fourth level of optimization? What do thoughts pass on? questions to research.
+Development -- natural and AI
+Lifelong
+Continual learning
+Embodied
+energetically grounded
+decrease or increase available virtual energy resources in environment to match compute resources
+autonomous training and inference switchover
+autonomous data collection
+most data internal, not external
+“Much of the incoming sensory data originates from within the body much as most cerebral information originates internally.”
+Social
+good associates and parents give the best influence
+poor direct and indirect (literature, media) social models do the opposite
+multiagent
+interact with natural world and humans
+Time -- nature and AI
+Spatial-temporal differences
+mostly different in nature
+oscillation the norm rather than exception
+genetic intelligence
+homeostasis/allostasis
+recurrent neuronal activation, STP, LTP
+only start to look similar in higher cognitive function
+more similar in machine learning
+exception RNN temporal processing, but transformers are replacing them
+we often know the entire trajectory to start
+when the humans are uncertain, the AI actually experiences a trajectory
+RL
+Criticality
+Posing genetic material at critical points in the genome space allows it to readily adapt within a few generations to natural pressures
+Paradigm of allostatic orchestration
+Allostasis – “stability through change” – “recognizes that biological set points change in anticipation of changing environmental states”
+“Health itself is an allostatic state of optimal anticipatory oscillation, hypothesized to relate to the state of criticality, a mathematical point of poise between phases, on the border between order and disorder (or the “edge of chaos”).”
+“it is the pluripotent capacity to express a range of activity patterns, that should be the most optimal pattern of all.”
+The body and the cell can quickly recruit or retire energetic assets to minimize free energy.
+The immune system has a few experts, but is able to quickly train millions more
+The tensigrisity of excitatory and inhibitory neurons allow large brain excitation or inhibition
+natural log based spatial and temporal fractal patterns in brainwave activity mean oscillations are never repeated.
+Resting, these systems sit at diverse critical points in state space
+Deep learning can imitate
+ReLU and odd-functions make weights excitatory/inhibitory
+not many fractal patterns or biases
+when there are, (up/downsampling, pooling, heirarcheal RL) it’s often base-N
+RL complexity regularization with curiosity and empowerment imitate some of these aspects.
+→ in all this, we see prediction as nature’s principle tool for intelligent behavior
+PAO: health is optimal anticipatory oscillation
+Model based RL has leaps to overcome for continuous domains
+Predictive General Intelligence
+The model
+Abstraction, prediction, action
+all actions are also observations
+Marginalized distributions
+Target and actual joint distributions
+Network of experts
+parents supply information
+children read and bias latent
+neighbors influence similar neighbors
+imitates global workspace theory
+training nodewise
+minimize information travel
+Other nodes
+RewardNode
+Trained with external reward
+intrinsic reward comes from energetic availability
+extrinsic reward broadcasted from reward node
+Not necessarily accurate
+create stochasticity during runtime → exploration
+when combined with internal sensations and true energetic availability → emotions
+brings rich advantages of broaden and build theory
+AttnNode
+similarity and location based attention
+symbolic workspace
+differentiable and nondifferentiable interfaces identical
+train small differentiable, run big nondifferentiable
+1d, 2d, 3d grids and graphs
+visual and buffered audio attention
+Organs
+arbitrary energy processing
+conversation
+storage
+transport
+create chaotic sensory data for brain
+environment interface organs
+Nodes are energetically grounded
+energy is the single loss metric
+expectation violation and child target kl divergence cost energy
+stochastic distributions sampled according to available energy
+OrganNodes process energy in an arbitrarily fixed yet influenceable way
+Learning
+First task-agnostic; later RL supervised
+pre-train nodes individually in parallel, faster; then perform whole agent differentiation
+Open-ended, autonomous growth
+easy to build superintelligent, narrow AI’s
+autonomous data collection
+choice when to train
+training costs energy
+the training experience joins one continual episode
+fuse pretrained nodes from different agents
+Symbolic cognition
+unsupervised: continual, in-context learning
+supervised: teacher forcing
+Swap the dataflow direction at runtime: dictate commands into internal representation
+Experiments
+bimodal text-image dataset
+exploration
+exploitation
++GridWorld
+exploration
+exploitation
++Magnebot
+exploration
+exploitation
+VNC controller - general use
+exploration
+exploitation
++VNC controller - web browser
+exploration
+exploitation
++VNC controller - AI programming
+exploration
+exploitation
+Analyses
+bimodal text-image dataset
+exploration
+exploitation
++GridWorld
+exploration
+exploitation
++Magnebot
+exploration
+exploitation
+VNC controller - general use
+exploration
+exploitation
++VNC controller - web browser
+exploration
+exploitation
++VNC controller - AI programming
+exploration
+exploitation
+Discussion
+first make general comments on the analyses
+Broader impact:
+General statement
+Keep AI open
+Open artificial intelligence
+Open to new thoughts, theories, ideas, world-models, behaviors
+Open endedness optimizes for no particular objective
+Closed to deceptive thoughts and dangerous behaviors
+Open to Human Suggestions
+Open learning environment
+Open to community extensions
+Open peer group
+Open to other agents
+Open to human peers
+Open (connected) to the real world
+Open community
+Open to Invitation
+Open research
+Online safety platform would be useful
+Open to feedback
+Invite future researchers to make massive multiagent online fully transparent AI and human interaction space.
+Conclusion
+General conclusion
+
+
+Intelligence illustrations
+- an anvil (unintelligent, big dataset trains intelligent small neural network)
+- thermodynamic system (look for/create phase transitions)
+- consumer (search, consume, digest)
