@@ -15,8 +15,8 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
     def __init__(
             self,
             nodes: List[Node],
-            observation_keys_nest: ts.Nested[Text],
-            action_keys_nest: ts.Nested[Text],
+            observation_keys_nest: ts.NestedText,
+            action_keys_nest: ts.NestedText,
             env_time_step_spec: ts.TimeStep,
             env_action_spec: ts.NestedTensorSpec,
             name: Optional[str] = ''):
@@ -106,9 +106,9 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         # get info for training
         info = self.get_info(states)
 
-        return PolicyStep(action=action, state=states, info=info)
+        return ts.PolicyStep(action=action, state=states, info=info)
 
-    def _distribution(self, time_step: ts.TimeStep, policy_state: types.NestedTensorSpec) -> policy_step.PolicyStep:
+    def _distribution(self, time_step: ts.TimeStep, policy_state: ts.NestedTensorSpec) -> ts.PolicyStep:
         raise NotImplementedError('This policy does not support distribution output')
 
     def _get_initial_state(self, batch_size: Optional[ts.Int] = None) -> ts.NestedTensor:
@@ -152,7 +152,7 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         return [node.name for node in self.all_nodes if isinstance(node, InfoNode)]
 
     @property
-    def info_spec(self) -> types.NestedTensorSpec:
+    def info_spec(self) -> ts.NestedTensorSpec:
         """info is the same as `states` at any point in time.
         It is used to store recurrent information for training later"""
         return {infonode.name: infonode.state_spec

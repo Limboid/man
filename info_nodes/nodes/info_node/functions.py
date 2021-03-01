@@ -43,7 +43,7 @@ def f_parent_fixed_index_factory(index: int):
     return _f_parent_fixed_index
 
 
-def f_parent_single_parent(states: ts.NestedTensor, parent_names: List[Text])
+def f_parent_single_parent(states: ts.NestedTensor, parent_names: List[Text]):
     parent_state = states[parent_names[0]]
     return parent_state[keys.STATES.ENERGY], parent_state[keys.STATES.LATENT]
 

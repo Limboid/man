@@ -16,6 +16,7 @@ TensorSpec = _tf.TensorSpec
 Nested = _types.Nested
 NestedTensor = _types.NestedTensor
 NestedTensorSpec = _types.NestedTensorSpec
+NestedText = Nested[_ty.Text, 'NestedText']
 
 TimeStep = _tfa.trajectories.time_step.TimeStep
 StepType = _tfa.trajectories.time_step.StepType

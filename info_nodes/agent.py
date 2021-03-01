@@ -23,8 +23,8 @@ class InfoNodeAgent(tfa.agents.TFAgent):
     def __init__(
             self,
             nodes: List[Node],
-            observation_keys_nest: ts.Nested[Text],
-            action_keys_nest: ts.Nested[Text],
+            observation_keys_nest: ts.NestedText,
+            action_keys_nest: ts.NestedText,
             env_time_step_spec: ts.TimeStep,
             env_action_spec: ts.NestedTensorSpec,
             predix_id: Optional[str] = ''):
