@@ -50,17 +50,41 @@
 
 \section{Introduction}
 
+\I should be clear: \my objective is not ``can \I make artificial general intelligence?'' but ``how general can \I make artificial intelligence''. The strictest definition of ``general'' intelligence is intractable; for every pattern recognizer, there exists a pattern it cannot recognize. (CITE AGI paper on my iPad) Nonetheless, natural and artificial approaches to the challange informally provide us an intuition for the illusion and, more importantly, direction to follow.
 
-REMOVE THIS FIRST PARAGRAPH
-Our objective is not "can we make artificial general intelligence?`` but “how general can we make artificial intelligence?” Intelligence has been defined as “an agent’s ability to achieve goals in a wide range of environments.” (Legg and Hutter, 2007 CITE) and “skill-acquisition efficiency” with respect to available information (Chollet 2019 CITE). Although these definitions imply there is no upper bound on generality and that artificial general intelligence in the superlative sense is an illusion (Human ne AGI CITE), they do provide a metric we can put to our informal understanding of the concept and a reward signal to follow.
-
-The life sciences and AI disciplines have identified numerous techniques underlying principles of intelligence which lead to performance increase over a diverse array of tasks. This work aims to consolidate some of those principles into a working implementation of task-agnostic, open-ended artificial ‘general’ intelligence together with experiments and ablation studies. Our paper is organized as follows: section 2 reviews key principles of intelligence; section 3 composes those critical ideas into a theoretical AI system and describes its software implementation; section 4 presents experiments with observations over a diverse set of open-ended learning environments and numerous close-ended tasks and benchmarks and also describes ablation studies; section 5 presents descriptive and comparative analyses of individual experimental results; and finally, section 6 gives a general discussion of this work along with its broader impact and a conclusion. 
+It must also be ackowledged that the universe is \textit{not} a white noise data genorator. Instead, once tamed the scientific mind percieves elementary and emergent isomorpisms, YYYY's, and ZZZ's (FIND TWO DIFFERENT WORDS FOR ISOMORPHISMS, PATTERNS (REUSED), ETC.) interacting in an orderly and predictable manner. The information system required to understand these patterns may not require so much data but rather, a few well chosen priors that are reasonably aligned with the general distribution of data.
+    
+This work examines some of the principles underlying intelligence and consolidates them into a working implementation of task-agnostic, open-ended artificial `general' intelligence together with experiments and ablation studies. \My paper is organized as follows: section 2 reviews key principles of intelligence; section 3 describes their novel composition: Predictive General Intelligence (PGI); section 4 presents experiments with observations over a diverse set of open-ended learning environments and numerous close-ended tasks and benchmarks and also describes ablation studies; section 5 presents descriptive and comparative analyses of individual experimental results; and finally, section 6 gives a general discussion of this work along with its broader impact and a conclusion.  
 
 \section{Principles of Intelligence}
 
-We take lessons from physical and life sciences as well as artificial intelligence. Our aim is not to exhaust every thought and theory but only to extract those critical for our AI system. See CITE for a more elaborate discussion.
-Energetic grounding
-Intelligence begins with information (CITE) which, in turn, depends on energy. Information theory even equates information with energy by $E(x) = - \log{p(x)} $. (CITE) With energy or information is equated to the negative log likelihood of an event occurring, events that are more probable demand less energy while those that are less likely demand more energy. It is important to note: this is an allocentric measure. The information carried by a signal $x_i$ may be very useful to another human, yet $- \log{p(x_i)}$ only measures the information content of a signal with respect to a particular probability distribution $p$. This probability distribution may represent various information systems. For instance, in discrete signal communication, $p$ represents a prior expectation of signal occurrence. Optimized codebooks use short strings to identify frequently occurring events while longer stings discriminate between infrequently occurring ones. The effect is, transmitting codes for likely occurrences consumes less physical energy while the opposite is true for more informative, less expected signals. In quantum physics, a particle position in space may be represented by a probability wavefunction. Natural living systems represent a prior expectation over their environmental state. 
+Intelligence has been defined as ``an agent’s ability to achieve goals in a wide range of environments.'' (Legg and Hutter, 2007 CITE) and ``skill-acquisition efficiency'' with respect to available information (Chollet 2019 CITE). While its mode of expression varies between and within natural and artificial settings, \I extract overarching principles and comparisons in this section. \My aim is not to exhaust every thought and theory but only to provide a background for introducing PGI. See CITE for a more extensive discussion.
+
+\subsection{Energetic grounding}
+Intelligence begins with information (CITE) which, in turn, depends on energy. Under any probability distribution $p$, information theory even equates information with energy by $E(x) = - \log{p(x)} $ (CITE). With this negative log-likelihood relationship, it is easy to see that unexpected events are therefore energetic ones. For instance, signaling with prior-optimized codebook, the cross entropy of a signal directly relates both electrical energy consumed and information transmitted. (CITE) Likewise EEG's are used to approximate the cognitive involvement of a brain region by measuring its glucose metabolism. (CITE)
+
+In all natural settings, free energy minimization is the norm, and its increase is an exception: objects descend potential wells; virtual particles dissapate; the princple of least action obtains a minimal route for system evolution. In turn, decrease of free energy -- that available for work and maintenance of order -- produces increase in entropy: structured arangements evaporate; gas pressures equalize; wavefunctions spread out. Notably, the Casmir force directly attracts of repels matter apart from any of the four fundamental forces such that expected energy homogenizes. 
+
+Life stands in defiance of this entropic trend, yet even in the struggle for survival, living systems continually optimize energy expendature. By the energy-information relationship, this means minimal information transfer and greatest potential for intelligence. For example, homeostatic mechanisms work to equalize energy production and consumption. This results in minimal free energy, optimal energy expendature, and ``survival intelligence'' (CITE). Genetic code likewise gives the muscular-skeletal system innate ``mechanical intelligence'' which `ofloads' some of the locomotive learning that a vertabrae's brain must perform. (Davide Zappetti CITE but that article is about robots not natural systems). In general, natural living systems represent a prior expectation over their environmental state. It follows that as actual and expected environments diverge, survival imposes a greator information and energetic tax to mainten order. Again, probability expectation maximization accompanies energy minimization, hence control over the environment and intelligence.
+
+It should be noted that intelligently meeting the energy challange is not simply about on storing away as much energy as possible, but equalizing energy intake and expenderture. Sustained positive free energy is just debilitating as negative extremes. \footnote{It should be noted in mobile life forms that selection pressures favor this extreme over the other. However excessive increase eventually accompanies loss of agility, hence suceptibility to prey. Additionally, as this is not a natural stressor, most animals are not equipted with the mechanisms to intelligently handle high amounts of free energy and suffer from resulting stress. For instance, chronic elevated levels of mobilized energy and its indicators such as blood sugar, free fatty acids, cortisol, and blood pressure are associated with inflammation, diabetes, immunosuppression, ulceration, corinary heart disease, and hypertension.} The brain exemplifies this principle. Consuming 20\% of the average human's (CHECK) resting metabolic energy in an organ only 1.5 kg. (3 lbs.) (CHECK), its neurons must balance a lean energy budget. Expensive, energetic signaling between neurons -- especially long internetwork axons -- kept to a bare minimum. The little energy available is used to maintain the neurons' delicate membrane and . Without a steady flow of energy, the brain quickly dies. However the opposite is equally dangerous. Unchecked, hyperglyemia leads to neuroinflammation and ultimately, cell death. To cope with energy stress in either direction, neurons generally remain very sensitive to their extracellular environment. If energy is short, cell growth pauses, synaptic thresholds increase, and synaptic junctions become more resistive. On the other hand, 
+
+        
+Neurons individually adapt to minimize the difference between produced and consumed energy. During glucose deprivation, cell growth and maintenance is paused, synaptic connection strengths are decreased, and signal thresholds are increased. Once free energy levels neutralize again, anabolic processes resume,  and the neuron becomes more likely to participate in large intranetwork conversations. Repeated expression of this local free energy minimization principle produces adaptive behavior -- intelligence. (see Figure 4 from ncbi.nlm.nih.gov/pmc/articles/PMC6664078) Even in the abscence of a reward system or natural body, sections of cortical tissue are experimentally observed to learn robotic vehicle control. (The Energy Homeostasis Principle: Neuronal Energy Regulation Drives Local Network Dynamics Generating Behavior) 
+
+It comes as no surprise therefore that estimated cost minimization is the norm in behavioral psychology and emergant sciences: humans continually look for ways to increase their efficency or otherwise minimize cognitive and physical workload (MAKE SURE THIS IS A GOOD DEFINITION OF COST ESTIMATION); the global economy likewise . . .; and these principles extend directly to the research and development of AI. Human cognitive and financial energy form selective pressures to artificial intelligence survival.
+
+The lesson for AI is to keep energy demands in foremost at all times. Obviously, this means minimizing the cross entropy or Kullbach  Leblief divergence of a neural network against its target data distribution, but energy minimization does not stop there. The actual algorithmic implementations of intelligence should be made as resource efficent as possible. As quoted earlier, intelligence has been defined as ``skill acquizition efficency TODO. While state of the art machine learning systems have displayed superhuman performance on a variety of problem domains, this is only achieved by massive amounts of physical energy and information. Comparing its 343TJ, 543 million dollar training budjet with the XX J of energy a YY takes to learn to speak English, GPT-3 seems quite unintelligent (
+
+
+
+
+
+
+
+
+
+With energy or information is equated to the negative log likelihood of an event occurring, events that are more probable demand less energy while those that are less likely demand more energy. It is important to note: this is an allocentric measure. The information carried by a signal $x_i$ may be very useful to another human, yet $- \log{p(x_i)}$ only measures the information content of a signal with respect to a particular probability distribution $p$. This probability distribution may represent various information systems. For instance, in discrete signal communication, $p$ represents a prior expectation of signal occurrence. Optimized codebooks use short strings to identify frequently occurring events while longer stings discriminate between infrequently occurring ones. The effect is, transmitting codes for likely occurrences consumes less physical energy while the opposite is true for more informative, less expected signals. In quantum physics, a particle position in space may be represented by a probability wavefunction. Natural living systems represent a prior expectation over their environmental state. 
 This is especially apparent under electroencephalogram observation of the brain where increased neuronal glucose metabolism is correlated with less expected signals from outside or inside the brain. 
 
 In the context of machine learning, the model represents a probability distribution over input-output pairs. Training the model on a dataset of high-energy, novel input-output pairs is analogous to allowing a cold object to absorb some of the entropic energy from a warmer mass. On the other hand, the more likely an input-output pair is to be produced by a model, the more ‘neutral’ its temperature becomes and less informative it is to the model. This explains the traditional log improvement of training with respect to the amount of information processed. (SHOW FIGURE) Continuing the thermodynamics parallel, machine learning systems even share properties of states and transitions during training. (figure XX. CITE FIGURE SHOWING SOLID-LIQUID-GAS AND NEURAL NETWORK TRAINING)
@@ -130,30 +154,7 @@ It should be clear that imitating natural intelligence demands adopting an agent
 
 However this does not necessarily limit the agent to a single body. Parallelization
 
-Segmentation, Representation, and Composition
-TODO
-
-Learning Styles
-Inverse language modeling
-
-Learning styles
-Continual – or developmental – learning
-In context, few shot
-Environments
-
-Measure intelligence on psychometric tests; Measure skills on classic SL, UL, and RL benchmarks:
-image classification
-image generation
-sentiment classification
-conditional text generation
-atari control
-3D kinematics
-multiagent games
-language tasks
-
-Language and demonstration guided Computer control
-Robot control
-
+The real world, of course, is not stable. The paradigm of allostaic orchestration therefore posits organisms to ``maintain stability through change'' with anticipatory rather than reactive behavior. 
 Each of these principles of intelligence provide unique advantages to AI systems, and proofs-of-concept such as RAINBOW reinforcement learning, X, and Y demonstrate that combining multiple inductive biases into one AI system synergizes the advantages of individual ideas. However, to our knowledge, no work has combined all of them in one system. Our work, Predictive ‘General’ Intelligence, does this.
 
 \section{Predictive ‘General’ Intelligence}
