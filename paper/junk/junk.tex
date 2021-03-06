@@ -1,0 +1,83 @@
+
+
+
+
+
+
+
+
+
+    
+
+===============================================================================================================================================================
+With energy or information is equated to the negative log likelihood of an event occurring, events that are more probable demand less energy while those that are less likely demand more energy. It is important to note: this is an allocentric measure. The information carried by a signal $x_i$ may be very useful to another human, yet $- \log{p(x_i)}$ only measures the information content of a signal with respect to a particular probability distribution $p$. This probability distribution may represent various information systems. For instance, in discrete signal communication, $p$ represents a prior expectation of signal occurrence. Optimized codebooks use short strings to identify frequently occurring events while longer stings discriminate between infrequently occurring ones. The effect is, transmitting codes for likely occurrences consumes less physical energy while the opposite is true for more informative, less expected signals. In quantum physics, a particle position in space may be represented by a probability wavefunction. Natural living systems represent a prior expectation over their environmental state. 
+This is especially apparent under electroencephalogram observation of the brain where increased neuronal glucose metabolism is correlated with less expected signals from outside or inside the brain. 
+
+In the context of machine learning, the model represents a probability distribution over input-output pairs. Training the model on a dataset of high-energy, novel input-output pairs is analogous to allowing a cold object to absorb some of the entropic energy from a warmer mass. On the other hand, the more likely an input-output pair is to be produced by a model, the more ‘neutral’ its temperature becomes and less informative it is to the model. This explains the traditional log improvement of training with respect to the amount of information processed. (SHOW FIGURE) Continuing the thermodynamics parallel, machine learning systems even share properties of states and transitions during training. (figure XX. CITE FIGURE SHOWING SOLID-LIQUID-GAS AND NEURAL NETWORK TRAINING)
+
+When its expectation is taken over the event space, probabilistic energy becomes entropy $H(p) = \expectation{-\log{p(x)}}$. The entropy of a probability distribution $q$ with respect to a prior expectation $p$ gives the cross entropy $H(p,q) = \expectation[p]{ \log{ q(x) } }$ and asymmetric energy loss from one distribution to another may be defined by the Kullback-Leibler Divergence metric $\kld{p}{q} = H(p,q) - H(p) = \expectation[p]{ \log {\frac {p(x)}{q(x)} } }$. Kullback-Leibler Divergence gives an objective measure to the minimum information required to transform a prior to a posterior, and if we let the uniform prior $\mathcal{U}$ represent zero information, the Kullback-Leibler divergence of any other distribution $q$ from it $\kld{q}{\mathcal{U}}$ then gives an absolute measure to the information contained in $q$. 
+
+These mathematically pure yet rich ideas from information theory, give basis to formalize connections across numerous domains of science and identify the overarching motif of free energy minimization. With respect to any particular system, free energy is the complement of bound and entropic energy. For instance, note the similarity between Gibbs free energy $G$, Helmholtz free energy $F$, grand free energy $\phi$, and Kullback-Leibler divergence $\kld{p}{q}$:
+\begin{alignat*}{4}
+& G    && \equiv && {} E + PV \quad && - TS \\
+& F    && \equiv && {} E      \quad && - TS \\
+& \phi && \equiv && {} E      \quad && - TS - \mu N \\
+& \underbrace{\kld{p}{q}}_{\text{free energy}} && \equiv && {} \underbrace{H(p,q)}_{\text{bound energy}} \quad && \underbrace{- H(p)}_{\text{entropy}}
+\end{alignat*}
+In all domains of definition, the universe fights free energy. This involves entropy maximization. For instance, the Casmir effect provides an attractive or repulsive force without invoking any of the fundamental forces. Instead it influences particles in a way that directly maximizes the uniformity and entropy of space. The principle of least action states that XXXX.
+
+Life represents a defiance of this overall trend, yet even in its struggle, organisms do not expend unnecessary amounts of energy. Blood sugar is minimized until necessary. YYY. Allostatic control theory shows that life cannot tolerate excessive amounts of energy and such unusual physiological states as those fostered by modern society give rise to diabetes, chronic hypertension, and other lifestyle problems.
+
+In the mind, Friston’s free energy principle posits that 
+- define
+- discuss examples of action in humans
+- discuss neuronal principle and experiment of neural controlled car in “Free Energy and the Brain”
+- explain that the EEG is observing areas of extra glucose consumption - aka free energy
+
+
+
+INTRODUCE INFORMATION THEORY HERE. THEN DISCUSS HOW LIFE IS A DEFIANCE OF THE TREND. THEN HOW LIFE EATS, RESTS, AND ACTS. FINALLY MAKE PARALLELS WITH ARTIFICIAL INTELLIGENCE. 
+
+Natural intelligence does not need to be spoon fed data to acquire Diverse, adapted skills and behaviors. This should not be the case for artificial intelligence either. 
+
+The theoretical world of machine learning meets a hard reality when training time comes. State of the art AI systems consume thousands of RANT ABOUT FINANCIAL AND ENVIRONMENTAL ASPECTS OF LEARNING. In contrast, human intelligence finds relative ease in acquiring new skills, and the carbon footprint of physiologically comparable species does not approach computing systems. (CITE) 
+
+How does natural intelligence cope with the reality of bioenergetics? By keeping it foremost in mind. Energetic demands provide strong guidance to the
+
+Allostatic control theory IS THAT THE RIGHT NAME FOR THIS THEORY?        carries this thought further with “predictive regulation” which “proposes that efficient regulation requires anticipating needs and preparing to satisfy them before they arise.” (Allostasis: A model of predictive regulation CITE) DISCUSS PRINCIPLES OF ALLOSTATICS PAPER.
+
+After feeding, the animal typically enters a ‘rest and digest’ period where a subset of its peripheral nervous system -- the parasympathetic system -- dominates decreasing respiration, heart rate, and blood pressure. Through these are natural processes promoting adaptive, diverse intelligent animal life, importantly, they are not appropriate at all times. In excess, they can reduce the amount of mobile energy available for survival functions. Homeostatic control therefore must balance energy collection against mobilization.
+ 
+data = increase budget
+mobile energy = budget
+information energy = decrease budget
+
+I might be confusing information, data, and energy
+We extend these bioenergetic themes to intelligence with information theory’s definition of MOVE THIS TO BIOLOGICAL PART BEFORE INTORDUCING 
+
+This brief yet rich consideration of information
+
+We emphasize that data only loses expected energy with consumption. That is, for any machine learning model $f \colon X \mapsto Y$ where $X$ and $Y$ are the domains of inputs and outputs respectively, the probabilistic energy of the output is upper-bounded by the input $E({X}) \ge E({Y})$. Using deep learning, we might imagine each layer of the neural network as ‘absorbing’ some of the signal’s energy as it maps the signal onward $E(X) \ge E(H^1) \ge E({H}^2) \ge E(H^l)$. In the specific framework of agent-environment interaction, this means following the route from perception to action. 
+
+As with physical energy, information theoretic energy -- information -- is always readily available. However, its relative availability may not be constant and the form it exists in may not be useful to the agent. Increasingly adapted and general intelligences should be able to anticipate demand and consume information in a variety of forms. This implies the agent should receive diverse modalities of information.
+
+Just as stored information is analogous to energy, data consumption is to eating. Collecting training data gives the AI system information which may lower the negative log likelihood of future data. Regarding the ‘nutrition’ of consumed data, recent works have drawn attention to the danger of poisoning -- injecting data into a training pipeline that decreases its performance or stability -- as well as XXXX -- which is comparable to malnutrition in our discussion. Most existing machine learning systems today are embryos in this respect. They are force fed data with little attention to feedback. In contrast, as animal life develops, it gains the capability to reject food that is presented to it, choose food from a range of options, and even independently search out food without the intervention of a trainer. AI systems should imitate natural intelligence accordingly.
+
+The process of training may be likened to digestion. JUSTIFY. EXPLAIN.
+
+Finally, using information theoretic energy allows us to define a reward system carrying rich implications from nature. NATURAL REWARD SIGNALS ARE HIGHLY CORRELATED WITH ENERGY ABUNDANCE. DISCUSS HOW NATURAL REWARD SYSTEMS
+- arise from a complex, chaotic “internal milieu” thus shaking out local minima
+- resist tampering. They break down in most cases to not forever favor ‘local behavioral optima’
+- are intrinsic. So while the AI system is extrinsically reward-free, it generates its own intrinsic reward signals by information theoretic mechanisms
+
+Triply grounding the AI system’s energy in its compute platform, the interaction environment, and the AI's information theoretic energy helps align its objectives with our own.
+Open-ended learning (combine with previous paragraph)
+Few points deserve as much emphasis as reward-free (REMOVE), task-agnostic, open-ended learning in the domain of abstract principles of intelligence. Supervised learning plays a key role in superhuman narrow AI systems today, and supervised learning over large datasets - notably in language modeling - extracts information useful to tasks in unexpected ways (CITE GPT3 \& Switch-Transformer papers). Nonetheless, breaking present intelligence generality barriers demands zooming out from mean absolute errors, Inception scores, BLEU scores, IoU’s - completely leaving the domain of classic supervised learning - to entropy, Kullback–Leibler divergence, and other ‘pure’ information-theoretic metrics.
+
+Despite the advantages these principles of intelligence bring to an AI system, more inductive biases are necessary to approach human-like cognition and behavior (See Section 5 “Ablations”).
+Agent-Environment Interaction
+It should be clear that imitating natural intelligence demands adopting an agent-environment interaction framework. Unlike blind machine learning pipelines, the AI system must be able to perceive its actions and their consequences just as it would take in traditional observations. 
+
+However this does not necessarily limit the agent to a single body. Parallelization
+
+The real world, of course, is not stable. The paradigm of allostaic orchestration therefore posits organisms to ``maintain stability through change'' with anticipatory rather than reactive behavior.  

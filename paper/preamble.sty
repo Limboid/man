@@ -7,8 +7,12 @@
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{stackengine}
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+
+\stackMath
 
 \newcommand{\RR}{I\!\!R} % real numbers
 \newcommand{\Nat}{I\!\!N} % natural numbers
@@ -18,10 +22,26 @@
 %% to avoid plurality typos, use \I \am. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Then I can change this to We are easily %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\I}{I\;}
-\newcommand{\am}{am\;}
-\newcommand{\my}{my\;}
-\newcommand{\My}{My\;}
+\newcommand{\We}{We\;}
+\newcommand{\we}{we\;}
+\newcommand{\are}{are\;}
+\newcommand{\our}{our\;}
+\newcommand{\Our}{Our\;}
+
+\newcommand{\PGI}{PGI}
+\newcommand{\pgi}{Principled General Intelligence}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% https://tex.stackexchange.com/questions/99809/box-or-sidebar-for-additional-text %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+
+\newenvironment{WrapText}[1][r]
+  {\wrapfigure{#1}{0.5\textwidth}\tcolorbox}
+  {\endtcolorbox\endwrapfigure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% https://gist.github.com/bmmalone/db1aed13ed4e8de967a7e431f7f95bfa %%
@@ -85,10 +105,16 @@
 %   \kld{p}{q}
 %%%
 
-\DeclarePairedDelimiterX{\infdivx}[2]{(}{)}{%
+%\DeclarePairedDelimiterX{\infdivx}[2]{(}{)}{%
+%  #1\;\delimsize|\delimsize|\;#2%
+%}
+%\newcommand{\kld}[2]{\ensuremath{D_{KL}\infdivx{#1}{#2}}\xspace}
+
+% I (Jacob) modified this:
+\DeclarePairedDelimiterX{\infdivx}[2]{[}{]}{%
   #1\;\delimsize|\delimsize|\;#2%
 }
-\newcommand{\kld}[2]{\ensuremath{D_{KL}\infdivx{#1}{#2}}\xspace}
+\newcommand{\kld}[2]{\ensuremath{\mathrm{KL}\infdivx{#1}{#2}}\xspace}
 
 %%%
 % Expectation

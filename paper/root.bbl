@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Hafner et~al.(2020)Hafner, Ortega, Ba, Parr, Friston, and
+  Heess]{Hafner2020}
+Danijar Hafner, Pedro~A. Ortega, Jimmy Ba, Thomas Parr, Karl Friston, and
+  Nicolas Heess.
+\newblock Action and perception as divergence minimization.
+\newblock \emph{arXiv}, 9 2020.
+\newblock URL \url{http://arxiv.org/abs/2009.01791}.
+
+\end{thebibliography}
