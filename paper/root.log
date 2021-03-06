@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.9)  6 MAR 2021 08:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.9)  6 MAR 2021 17:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -291,6 +291,26 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen169
+\Gin@req@width=\dimen170
+)
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2020/01/17 v1.23 mathematical typesetting tools
 
@@ -298,8 +318,8 @@ Package: mathtools 2020/01/17 v1.23 mathematical typesetting tools
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count272
 \calc@Bcount=\count273
-\calc@Adimen=\dimen169
-\calc@Bdimen=\dimen170
+\calc@Adimen=\dimen171
+\calc@Bdimen=\dimen172
 \calc@Askip=\skip57
 \calc@Bskip=\skip58
 LaTeX Info: Redefining \setlength on input line 80.
@@ -315,14 +335,14 @@ LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \g_MT_multlinerow_int=\count275
-\l_MT_multwidth_dim=\dimen171
+\l_MT_multwidth_dim=\dimen173
 \origjot=\skip60
-\l_MT_shortvdotswithinadjustabove_dim=\dimen172
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen173
-\l_MT_above_intertext_sep=\dimen174
-\l_MT_below_intertext_sep=\dimen175
-\l_MT_above_shortintertext_sep=\dimen176
-\l_MT_below_shortintertext_sep=\dimen177
+\l_MT_shortvdotswithinadjustabove_dim=\dimen174
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen175
+\l_MT_above_intertext_sep=\dimen176
+\l_MT_below_intertext_sep=\dimen177
+\l_MT_above_shortintertext_sep=\dimen178
+\l_MT_below_shortintertext_sep=\dimen179
 )
 (/usr/share/texlive/texmf-dist/tex/latex/stackengine/stackengine.sty
 Package: stackengine 2017/02/13 v4.01\ Stacking text and objects in convenient 
@@ -365,7 +385,7 @@ Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
 \MT@toks=\toks25
 \MT@count=\count281
 LaTeX Info: Redefining \textls on input line 790.
-\MT@outer@kern=\dimen178
+\MT@outer@kern=\dimen180
 LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
 \MT@listname@count=\count282
 
@@ -382,8 +402,8 @@ Package microtype Info: Loading configuration file microtype.cfg.
 File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen179
-\WF@size=\dimen180
+\wrapoverhang=\dimen181
+\WF@size=\dimen182
 \c@WF@wrappedlines=\count283
 \WF@box=\box51
 \WF@everypar=\toks26
@@ -396,8 +416,8 @@ Package: tcolorbox 2019/11/15 version 4.22 text color boxes
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks27
-\pgfutil@tempdima=\dimen181
-\pgfutil@tempdimb=\dimen182
+\pgfutil@tempdima=\dimen183
+\pgfutil@tempdimb=\dimen184
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
 ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
@@ -412,26 +432,6 @@ Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
 Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
 
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 105.
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen183
-\Gin@req@width=\dimen184
-)
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
@@ -906,22 +906,7 @@ LaTeX Info: Redefining \nameref on input line 49.
 \@outlinefile=\write6
 \openout6 = `root.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 49.
-Package microtype Info: Generating PDF output.
-Package microtype Info: Character protrusion enabled (level 2).
-Package microtype Info: Using default protrusion set `alltext'.
-Package microtype Info: Automatic font expansion enabled (level 2),
-(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 49.
-Package microtype Info: No adjustment of tracking.
-Package microtype Info: No adjustment of interword spacing.
-Package microtype Info: No adjustment of character kerning.
 
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg
-File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
-)
-ABD: EveryShipout initializing macros
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
@@ -944,6 +929,22 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+LaTeX Info: Redefining \microtypecontext on input line 49.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 49.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg
+File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
+)
+ABD: EveryShipout initializing macros
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
@@ -990,12 +991,105 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-[3]) (./sections/principled_general_intelligence.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
+<./images/energy_minimization_local_and_global.jpg, id=69, 151.767pt x 153.9351
+pt>
+File: ./images/energy_minimization_local_and_global.jpg Graphic file (type jpg)
 
- [4])
-(./sections/experiment.tex) (./sections/discussion.tex) (./root.bbl) [5]
-(./sections/appendices/A.tex) (./sections/appendices/B.tex) [6
+<use ./images/energy_minimization_local_and_global.jpg>
+Package pdftex.def Info: ./images/energy_minimization_local_and_global.jpg  use
+d on input line 52.
+(pdftex.def)             Requested size: 151.76662pt x 153.93471pt.
+
+Underfull \vbox (badness 5771) has occurred while \output is active []
+
+ [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.60 
+      <./images/energy_minimization_local_and_global.jpg>] [4]
+(./images/learning_table.pdf_tex
+<./images/learning_table.pdf, id=89, page=1, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 1>
+Package pdftex.def Info: ./images/learning_table.pdf , page1 used on input line
+ 56.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=90, page=2, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 2>
+Package pdftex.def Info: ./images/learning_table.pdf , page2 used on input line
+ 59.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=91, page=3, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 3>
+Package pdftex.def Info: ./images/learning_table.pdf , page3 used on input line
+ 62.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=92, page=4, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 4>
+Package pdftex.def Info: ./images/learning_table.pdf , page4 used on input line
+ 65.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=93, page=5, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 5>
+Package pdftex.def Info: ./images/learning_table.pdf , page5 used on input line
+ 67.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=94, page=6, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 6>
+Package pdftex.def Info: ./images/learning_table.pdf , page6 used on input line
+ 70.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+<./images/learning_table.pdf, id=95, page=7, 433.62pt x 578.16pt>
+File: ./images/learning_table.pdf Graphic file (type pdf)
+<use ./images/learning_table.pdf, page 7>
+Package pdftex.def Info: ./images/learning_table.pdf , page7 used on input line
+ 72.
+(pdftex.def)             Requested size: 433.62pt x 578.18504pt.
+)
+Overfull \hbox (36.13501pt too wide) in paragraph at lines 74--118
+ [][] 
+ []
+
+) (./sections/principled_general_intelligence.tex) (./sections/experiment.tex)
+(./sections/discussion.tex [5] [6pdfTeX warning (ext4): destination with the sa
+me identifier (name{figure.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.20 \end{itemize}
+                   <./images/learning_table.pdf> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./images/learning_table.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+>]) (./root.bbl) [7] (./sections/appendices/A.tex) (./sections/appendices/B.tex
+) [8
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 90.
@@ -1008,13 +1102,13 @@ Package rerunfilecheck Info: File `root.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 90.
  ) 
 Here is how much of TeX's memory you used:
- 21576 strings out of 483107
- 393395 string characters out of 5964630
- 830477 words of memory out of 5000000
- 35931 multiletter control sequences out of 15000+600000
- 572050 words of font info for 167 fonts, out of 8000000 for 9000
+ 21644 strings out of 483107
+ 395247 string characters out of 5964630
+ 830506 words of memory out of 5000000
+ 35984 multiletter control sequences out of 15000+600000
+ 571825 words of font info for 165 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 62i,21n,77p,2221b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,21n,77p,2190b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/jacob/.tex
 live2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
@@ -1025,10 +1119,10 @@ public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on root.pdf (6 pages, 126614 bytes).
+Output written on root.pdf (8 pages, 211698 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
- 21589 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 222 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 21629 words of extra memory for PDF output out of 24883 (max. 10000000)
 
