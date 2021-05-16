@@ -1,32 +1,23 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Hafner et~al.(2020)Hafner, Ortega, Ba, Parr, Friston, and
-  Heess]{Hafner2020}
+\bibitem[Knott and Tait(2015)]{knott_tait_2015}
+Cargill~Gilston. Knott and Peter~Guthrie Tait.
+\newblock \emph{Life and scientific work of Peter Guthrie Tait: supplementing
+  the two volumes of Scientific papers published in 1898 and 1900}.
+\newblock Cambridge University Press, 2015.
+
+\bibitem[Hafner et~al.(2020{\natexlab{a}})Hafner, Ortega, Ba, Parr, Friston,
+  and Heess]{Hafner2020}
 Danijar Hafner, Pedro~A. Ortega, Jimmy Ba, Thomas Parr, Karl Friston, and
   Nicolas Heess.
 \newblock Action and perception as divergence minimization.
-\newblock \emph{arXiv}, 9 2020.
+\newblock \emph{arXiv}, 9 2020{\natexlab{a}}.
 \newblock URL \url{http://arxiv.org/abs/2009.01791}.
-
-\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
-  Neelakantan, Shyam, Sastry, Askell, Agarwal, Herbert-Voss, Krueger, Henighan,
-  Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin, Gray, Chess,
-  Clark, Berner, McCandlish, Radford, Sutskever, and Amodei]{Brown2020}
-Tom~B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan,
-  Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda
-  Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan,
-  Rewon Child, Aditya Ramesh, Daniel~M. Ziegler, Jeffrey Wu, Clemens Winter,
-  Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray,
-  Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford,
-  Ilya Sutskever, and Dario Amodei.
-\newblock Language models are few-shot learners.
-\newblock \emph{arXiv}, 5 2020.
-\newblock URL \url{http://arxiv.org/abs/2005.14165}.
 
 \bibitem[Vergara et~al.(2019)Vergara, Jaramillo-Riveri, Luarte, Moënne-Loccoz,
   Fuentes, Couve, and Maldonado]{Vergara2019}
@@ -42,6 +33,70 @@ Rodrigo~C. Vergara, Sebastián Jaramillo-Riveri, Alejandro Luarte, Cristóbal
   /pmc/articles/PMC6664078/?report=abstract
   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6664078/}.
 
+\bibitem[Mondol et~al.(2020)Mondol, Pothula, and Park]{Mondol2020}
+Md~Ashaduzzaman~Rubel Mondol, Aishwarya Pothula, and Deokgun Park.
+\newblock A definition and a test for human-level artificial intelligence.
+\newblock \emph{arXiv}, 11 2020.
+\newblock URL \url{http://arxiv.org/abs/2011.09410}.
+
+\bibitem[Chen(2003)]{Chen2003}
+Chaomei Chen.
+\newblock On the shoulders of giants, 2003.
+\newblock URL \url{http://link.springer.com/10.1007/978-1-4471-0051-5_5}.
+
+\bibitem[Hafner et~al.(2020{\natexlab{b}})Hafner, Lillicrap, Norouzi, and
+  Ba]{hafner2020dreamerv2}
+Danijar Hafner, Timothy Lillicrap, Mohammad Norouzi, and Jimmy Ba.
+\newblock Mastering atari with discrete world models.
+\newblock \emph{arXiv}, 10 2020{\natexlab{b}}.
+\newblock URL \url{http://arxiv.org/abs/2010.02193}.
+
+\bibitem[Guan et~al.(2019)Guan, Li, Duan, Li, Ren, and Cheng]{Guan2019}
+Yang Guan, Shengbo~Eben Li, Jingliang Duan, Jie Li, Yangang Ren, and Bo~Cheng.
+\newblock Direct and indirect reinforcement learning.
+\newblock \emph{arXiv}, 12 2019.
+\newblock URL \url{http://arxiv.org/abs/1912.10600}.
+
+\bibitem[Ha and Schmidhuber(2018)]{ha2018worldmodels}
+David Ha and Jürgen Schmidhuber.
+\newblock Recurrent world models facilitate policy evolution, 2018.
+\newblock URL
+  \url{https://papers.nips.cc/paper/7512-recurrent-world-models-facilitate-policy-evolution}.
+\newblock https://worldmodels.github.io.
+
+\bibitem[Pothula et~al.(2020)Pothula, Mondol, Narasimhan, Islam, and
+  Park]{Pothula2020}
+Aishwarya Pothula, Md~Ashaduzzaman~Rubel Mondol, Sanath Narasimhan, Sm~Mazharul
+  Islam, and Deokgun Park.
+\newblock Sedro: A simulated environment for developmental robotics.
+\newblock \emph{ICDL-EpiRob 2020 - 10th IEEE International Conference on
+  Development and Learning and Epigenetic Robotics}, 9 2020.
+\newblock URL \url{http://arxiv.org/abs/2009.01810}.
+
+\bibitem[Sinha et~al.(2019)Sinha, Ba, Krishnamurthy, and Sarkar]{8658389}
+Abhishek Sinha, Akilesh Ba, Balaji Krishnamurthy, and Mausoom Sarkar.
+\newblock Attention based natural language grounding by navigating virtual
+  environment.
+\newblock pages 236--244. Institute of Electrical and Electronics Engineers
+  Inc., 3 2019.
+\newblock ISBN 9781728119755.
+\newblock \doi{10.1109/WACV.2019.00031}.
+
+\bibitem[Hui et~al.(2020)Hui, Chevalier-Boisvert, Bahdanau, and
+  Bengio]{hui2020babyai}
+David Yu-Tung Hui, Maxime Chevalier-Boisvert, Dzmitry Bahdanau, and Yoshua
+  Bengio.
+\newblock Babyai 1.1, 2020.
+
+\bibitem[Chevalier-Boisvert et~al.(2019)Chevalier-Boisvert, Bahdanau, Lahlou,
+  Willems, Saharia, Nguyen, and Bengio]{babyai_iclr19}
+Maxime Chevalier-Boisvert, Dzmitry Bahdanau, Salem Lahlou, Lucas Willems,
+  Chitwan Saharia, Thien~Huu Nguyen, and Yoshua Bengio.
+\newblock Baby{AI}: First steps towards grounded language learning with a human
+  in the loop.
+\newblock In \emph{International Conference on Learning Representations}, 2019.
+\newblock URL \url{https://openreview.net/forum?id=rJeXCo0cYX}.
+
 \bibitem[Shazeer et~al.(2017)Shazeer, Mirhoseini, Maziarz, Davis, Le, Hinton,
   and Dean]{Shazeer2017}
 Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le,
@@ -50,5 +105,16 @@ Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le,
   mixture-of-experts layer.
 \newblock \emph{arXiv}, 1 2017.
 \newblock URL \url{http://arxiv.org/abs/1701.06538}.
+
+\bibitem[Hinton(2021)]{hinton2021represent}
+Geoffrey Hinton.
+\newblock How to represent part-whole hierarchies in a neural network, 2021.
+
+\bibitem[{Kohonen}(1990)]{58325}
+T.~{Kohonen}.
+\newblock The self-organizing map.
+\newblock \emph{Proceedings of the IEEE}, 78\penalty0 (9):\penalty0 1464--1480,
+  1990.
+\newblock \doi{10.1109/5.58325}.
 
 \end{thebibliography}

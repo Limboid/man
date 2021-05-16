@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.9)  6 MAR 2021 17:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.11.9)  16 MAY 2021 15:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -233,9 +233,39 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip54
+\L@UnitsRaiseTextstyle=\skip55
+\L@UnitsRaiseScriptstyle=\skip56
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+\MT@toks=\toks20
+\MT@count=\count194
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen160
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count195
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip57
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/01/20 v2.17e AMS math features
-\@mathmargin=\skip54
+\@mathmargin=\skip58
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -243,53 +273,113 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks20
-\ex@=\dimen160
+\@emptytoks=\toks21
+\ex@=\dimen161
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen161
+\pmbraise@=\dimen162
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count194
+\inf@bad=\count196
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count195
-\leftroot@=\count196
+\uproot@=\count197
+\leftroot@=\count198
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count197
-\DOTSCASE@=\count198
+\classnum@=\count199
+\DOTSCASE@=\count266
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
 \Mathstrutbox@=\box45
 \strutbox@=\box46
-\big@size=\dimen162
+\big@size=\dimen163
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count199
-\c@MaxMatrixCols=\count266
+\macc@depth=\count267
+\c@MaxMatrixCols=\count268
 \dotsspace@=\muskip17
-\c@parentequation=\count267
-\dspbrk@lvl=\count268
-\tag@help=\toks21
-\row@=\count269
-\column@=\count270
-\maxfields@=\count271
-\andhelp@=\toks22
-\eqnshift@=\dimen163
-\alignsep@=\dimen164
-\tagshift@=\dimen165
-\tagwidth@=\dimen166
-\totwidth@=\dimen167
-\lineht@=\dimen168
-\@envbody=\toks23
-\multlinegap=\skip55
-\multlinetaggap=\skip56
-\mathdisplay@stack=\toks24
+\c@parentequation=\count269
+\dspbrk@lvl=\count270
+\tag@help=\toks22
+\row@=\count271
+\column@=\count272
+\maxfields@=\count273
+\andhelp@=\toks23
+\eqnshift@=\dimen164
+\alignsep@=\dimen165
+\tagshift@=\dimen166
+\tagwidth@=\dimen167
+\totwidth@=\dimen168
+\lineht@=\dimen169
+\@envbody=\toks24
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2020/01/17 v1.23 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count274
+\calc@Bcount=\count275
+\calc@Adimen=\dimen170
+\calc@Bdimen=\dimen171
+\calc@Askip=\skip61
+\calc@Bskip=\skip62
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count276
+\calc@Cskip=\skip63
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count277
+\l_MT_multwidth_dim=\dimen172
+\origjot=\skip64
+\l_MT_shortvdotswithinadjustabove_dim=\dimen173
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen174
+\l_MT_above_intertext_sep=\dimen175
+\l_MT_below_intertext_sep=\dimen176
+\l_MT_above_shortintertext_sep=\dimen177
+\l_MT_below_shortintertext_sep=\dimen178
+)
+(/usr/share/texlive/texmf-dist/tex/latex/stackengine/stackengine.sty
+Package: stackengine 2017/02/13 v4.01\ Stacking text and objects in convenient 
+ways
+
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+)
+(/usr/share/texlive/texmf-dist/tex/generic/listofitems/listofitems.sty
+(/usr/share/texlive/texmf-dist/tex/generic/listofitems/listofitems.tex
+\loi_cnt_foreach_nest=\count279
+\loi_nestcnt=\count280
+)
+Package: listofitems 2019/08/21 v1.63 Grab items in lists using user-specified 
+sep char (CT)
+)
+\c@@stackindex=\count281
+\@boxshift=\skip65
+\stack@tmplength=\skip66
+\temp@stkl=\skip67
+\@stackedboxwidth=\skip68
+\@addedbox=\box47
+\@anchorbox=\box48
+\stackedbox=\box49
+\@centerbox=\box50
+\c@ROWcellindex@=\count282
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
@@ -308,99 +398,9 @@ Package graphics Info: Driver file: pdftex.def on input line 105.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen169
-\Gin@req@width=\dimen170
+\Gin@req@height=\dimen179
+\Gin@req@width=\dimen180
 )
-(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
-Package: mathtools 2020/01/17 v1.23 mathematical typesetting tools
-
-(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count272
-\calc@Bcount=\count273
-\calc@Adimen=\dimen171
-\calc@Bdimen=\dimen172
-\calc@Askip=\skip57
-\calc@Bskip=\skip58
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count274
-\calc@Cskip=\skip59
-)
-(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
-Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
-)
-LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
-LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
-LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
-LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count275
-\l_MT_multwidth_dim=\dimen173
-\origjot=\skip60
-\l_MT_shortvdotswithinadjustabove_dim=\dimen174
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen175
-\l_MT_above_intertext_sep=\dimen176
-\l_MT_below_intertext_sep=\dimen177
-\l_MT_above_shortintertext_sep=\dimen178
-\l_MT_below_shortintertext_sep=\dimen179
-)
-(/usr/share/texlive/texmf-dist/tex/latex/stackengine/stackengine.sty
-Package: stackengine 2017/02/13 v4.01\ Stacking text and objects in convenient 
-ways
-
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count276
-)
-(/usr/share/texlive/texmf-dist/tex/generic/listofitems/listofitems.sty
-(/usr/share/texlive/texmf-dist/tex/generic/listofitems/listofitems.tex
-\loi_cnt_foreach_nest=\count277
-\loi_nestcnt=\count278
-)
-Package: listofitems 2019/08/21 v1.63 Grab items in lists using user-specified 
-sep char (CT)
-)
-\c@@stackindex=\count279
-\@boxshift=\skip61
-\stack@tmplength=\skip62
-\temp@stkl=\skip63
-\@stackedboxwidth=\skip64
-\@addedbox=\box47
-\@anchorbox=\box48
-\stackedbox=\box49
-\@centerbox=\box50
-\c@ROWcellindex@=\count280
-)
-(/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
-Package: nicefrac 1998/08/04 v0.9b Nice fractions
-\L@UnitsRaiseDisplaystyle=\skip65
-\L@UnitsRaiseTextstyle=\skip66
-\L@UnitsRaiseScriptstyle=\skip67
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-))
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
-Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
-\MT@toks=\toks25
-\MT@count=\count281
-LaTeX Info: Redefining \textls on input line 790.
-\MT@outer@kern=\dimen180
-LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
-\MT@listname@count=\count282
-
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
-File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
-
-LaTeX Info: Redefining \lsstyle on input line 914.
-LaTeX Info: Redefining \lslig on input line 914.
-\MT@outer@space=\skip68
-)
-Package microtype Info: Loading configuration file microtype.cfg.
-
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
-File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
-))
 (/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen181
 \WF@size=\dimen182
@@ -906,7 +906,21 @@ LaTeX Info: Redefining \nameref on input line 49.
 \@outlinefile=\write6
 \openout6 = `root.out'.
 
+LaTeX Info: Redefining \microtypecontext on input line 49.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 49.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
 
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg
+File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
+)
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
@@ -929,21 +943,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 49.
-Package microtype Info: Generating PDF output.
-Package microtype Info: Character protrusion enabled (level 2).
-Package microtype Info: Using default protrusion set `alltext'.
-Package microtype Info: Automatic font expansion enabled (level 2),
-(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 49.
-Package microtype Info: No adjustment of tracking.
-Package microtype Info: No adjustment of interword spacing.
-Package microtype Info: No adjustment of character kerning.
-
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg
-File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
-)
 ABD: EveryShipout initializing macros
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
@@ -977,95 +976,144 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+ [1
 
-(./sections/introduction.tex) (./sections/principles_of_intelligence.tex
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./root.toc)
+\tf@toc=\write7
+\openout7 = `root.toc'.
+
+ [2
+
+] (./sections/introduction.tex) (./sections/principles_of_intelligence.tex
+(./sections/principles_of_intelligence/energetically_grounded.tex
+
+Package natbib Warning: Citation `Chollet2019' on page 3 undefined on input lin
+e 3.
+
+[3
+
+]) (./sections/principles_of_intelligence/free_energy_minimization.tex
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-7.
+3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [1
+)
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+\T1/ptm/m/n/10 (+20) on a data-generating dis-tri-bu-tion $\OML/cmm/m/it/10 ^^\
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )$
+ []
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 1701) in paragraph at lines 34--35
+\T1/ptm/m/n/10 (+20) has the con-ve-nient prop-erty of de-creas-ing
+ []
 
- [2]
-<./images/energy_minimization_local_and_global.jpg, id=69, 151.767pt x 153.9351
-pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+\OML/cmm/m/it/10 H\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p[]\OT1/cmr/m/n/10 (\OML/cm
+m/m/it/10 y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/1
+0 ^^\\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; ^^\
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; y\OT1/cmr/m/n/10 )) \OMS/cmsy/m/n/10 ^^@ \
+OML/cmm/m/it/10 H\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p[]\OT1/cmr/m/n/10 (\OML/cmm
+/m/it/10 y\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/10
+ ^^\\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ))$
+ []
+
+
+Underfull \hbox (badness 5681) in paragraph at lines 34--35
+\T1/ptm/m/n/10 (+20) Ad-di-tion-ally, the ther-mo-dy-namic per-spec-
+ []
+
+
+Underfull \hbox (badness 1509) in paragraph at lines 34--35
+\T1/ptm/m/n/10 (+20) tive iden-ti-fies phase tran-si-tions in train-ing
+ []
+
+[4]
+<./images/energy_minimization_local_and_global.jpg, id=107, 151.767pt x 153.935
+1pt>
 File: ./images/energy_minimization_local_and_global.jpg Graphic file (type jpg)
 
 <use ./images/energy_minimization_local_and_global.jpg>
 Package pdftex.def Info: ./images/energy_minimization_local_and_global.jpg  use
-d on input line 52.
+d on input line 44.
 (pdftex.def)             Requested size: 151.76662pt x 153.93471pt.
-
-Underfull \vbox (badness 5771) has occurred while \output is active []
-
- [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ [5pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.60 
-      <./images/energy_minimization_local_and_global.jpg>] [4]
+l.50 
+      <./images/energy_minimization_local_and_global.jpg>]
+
+Package natbib Warning: Citation `sahni2021hard' on page 6 undefined on input l
+ine 63.
+
+) [6] (./sections/principles_of_intelligence/optimization_spectrum.tex
+
+Package natbib Warning: Citation `fig:2' on page 7 undefined on input line 1.
+
 (./images/learning_table.pdf_tex
-<./images/learning_table.pdf, id=89, page=1, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=131, page=1, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 1>
 Package pdftex.def Info: ./images/learning_table.pdf , page1 used on input line
  56.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=90, page=2, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=132, page=2, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 2>
 Package pdftex.def Info: ./images/learning_table.pdf , page2 used on input line
  59.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=91, page=3, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=133, page=3, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 3>
 Package pdftex.def Info: ./images/learning_table.pdf , page3 used on input line
  62.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=92, page=4, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=134, page=4, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 4>
 Package pdftex.def Info: ./images/learning_table.pdf , page4 used on input line
  65.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=93, page=5, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=135, page=5, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 5>
 Package pdftex.def Info: ./images/learning_table.pdf , page5 used on input line
  67.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=94, page=6, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=136, page=6, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 6>
 Package pdftex.def Info: ./images/learning_table.pdf , page6 used on input line
  70.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
-<./images/learning_table.pdf, id=95, page=7, 433.62pt x 578.16pt>
+<./images/learning_table.pdf, id=137, page=7, 433.62pt x 578.16pt>
 File: ./images/learning_table.pdf Graphic file (type pdf)
 <use ./images/learning_table.pdf, page 7>
 Package pdftex.def Info: ./images/learning_table.pdf , page7 used on input line
  72.
 (pdftex.def)             Requested size: 433.62pt x 578.18504pt.
 )
-Overfull \hbox (36.13501pt too wide) in paragraph at lines 74--118
+Overfull \hbox (36.13501pt too wide) in paragraph at lines 74--40
  [][] 
  []
 
-) (./sections/principled_general_intelligence.tex) (./sections/experiment.tex)
-(./sections/discussion.tex [5] [6pdfTeX warning (ext4): destination with the sa
-me identifier (name{figure.2}) has been already used, duplicate ignored
+
+Package natbib Warning: Citation `Klaus2020' on page 7 undefined on input line 
+55.
+
+[7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.19 \item A
-            utonomously develop and train robots with embodied \PGI. <./images/
-learning_table.pdf> <./images/learning_table.pdf
+l.56 
+      <./images/learning_table.pdf> <./images/learning_table.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
 sion: multiple pdfs with page group included in a single page
@@ -1089,27 +1137,54 @@ sion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: /usr/bin/pdflatex (file ./images/learning_table.pdf): PDF inclu
 sion: multiple pdfs with page group included in a single page
->]) (./root.bbl) [7] (./sections/appendices/A.tex) (./sections/appendices/B.tex
-) [8
+>]) (./sections/principles_of_intelligence/optimal_anticipatory_criticality.tex
+) (./sections/principles_of_intelligence/open_ended.tex))
+(./sections/principled_general_intelligence.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9])
+(./sections/experiment.tex) (./sections/discussion.tex) (./root.bbl [10]
+Underfull \hbox (badness 10000) in paragraph at lines 61--66
+[]\T1/ptm/m/n/10 (+20) David Ha and Jür-gen Schmid-hu-ber.  Re-cur-rent world m
+od-els fa-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--66
+\T1/ptm/m/n/10 (+20) cil-i-tate pol-icy evo-lu-tion, 2018.  URL []$\T1/cmtt/m/n
+/10 https : / / papers . nips . cc /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--66
+\T1/cmtt/m/n/10 paper / 7512-[]recurrent-[]world-[]models-[]facilitate-[]policy
+-[]evolution$[]\T1/ptm/m/n/10 (+20) .
+ []
+
+) [11] (./sections/appendices/A.tex) (./sections/appendices/B.tex)
+
+Package natbib Warning: There were undefined citations.
+
+[12
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 90.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 90.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 100.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 100.
  (./root.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 90.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 90.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 100.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 100.
 Package rerunfilecheck Info: File `root.out' has not changed.
-(rerunfilecheck)             Checksum: 2561E1497324048386EE53F3AFAAB4E7;571.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 90.
+(rerunfilecheck)             Checksum: 76AEB95BE9F1D7BA3ECA742EAA9C4FC7;918.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 100.
  ) 
 Here is how much of TeX's memory you used:
- 21644 strings out of 483107
- 395247 string characters out of 5964630
- 830506 words of memory out of 5000000
- 35984 multiletter control sequences out of 15000+600000
- 571825 words of font info for 165 fonts, out of 8000000 for 9000
+ 21752 strings out of 483107
+ 397579 string characters out of 5964630
+ 834501 words of memory out of 5000000
+ 36032 multiletter control sequences out of 15000+600000
+ 573115 words of font info for 179 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 62i,21n,77p,2190b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,21n,77p,2264b,506s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/jacob/.tex
 live2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
@@ -1120,10 +1195,10 @@ public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on root.pdf (8 pages, 212084 bytes).
+Output written on root.pdf (12 pages, 235775 bytes).
 PDF statistics:
- 222 PDF objects out of 1000 (max. 8388607)
- 147 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
- 21629 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 328 PDF objects out of 1000 (max. 8388607)
+ 239 compressed objects within 3 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 21661 words of extra memory for PDF output out of 24883 (max. 10000000)
 

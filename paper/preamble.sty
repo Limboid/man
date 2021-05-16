@@ -6,16 +6,18 @@
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
 \usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{stackengine}
+
 %\usepackage{wrapfig}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
-\usepackage{mathtools}
-\usepackage{stackengine}
-\usepackage{nicefrac}       % compact symbols for 1/2, etc.
-\usepackage{microtype}      % microtypography
-
 \stackMath
+
+\DeclareMathSymbol{\GFPPhi}{\mathalpha}{operators}{8}
 
 \newcommand{\RR}{I\!\!R} % real numbers
 \newcommand{\Nat}{I\!\!N} % natural numbers
@@ -28,8 +30,10 @@
 \newcommand{\We}{We\;}
 \newcommand{\we}{we\;}
 \newcommand{\are}{are\;}
-\newcommand{\our}{our\;}
 \newcommand{\Our}{Our\;}
+\newcommand{\our}{our\;}
+\newcommand{\Us}{Us\;}
+\newcommand{\us}{us\;}
 
 \newcommand{\PGI}{PGI}
 \newcommand{\pgi}{Principled General Intelligence}

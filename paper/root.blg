@@ -3,44 +3,57 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: root.aux
 The style file: unsrtnat.bst
 Database file #1: bibliography.bib
-You've used 4 entries,
+Warning--entry type for "ha2018worldmodels" isn't style-file defined
+--line 18 of file bibliography.bib
+Warning--entry type for "Chen2003" isn't style-file defined
+--line 75 of file bibliography.bib
+Repeated entry---line 118 of file bibliography.bib
+ : @article{Mondol2020
+ :                    ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Chollet2019"
+Warning--I didn't find a database entry for "fig:2"
+Warning--I didn't find a database entry for "Klaus2020"
+Warning--empty booktitle in 8658389
+You've used 15 entries,
             2481 wiz_defined-function locations,
-            584 strings with 6053 characters,
-and the built_in function-call counts, 2445 in all, are:
-= -- 117
-> -- 318
-< -- 0
-+ -- 110
-- -- 102
-* -- 274
-:= -- 487
-add.period$ -- 18
-call.type$ -- 4
-change.case$ -- 8
-chr.to.int$ -- 4
-cite$ -- 4
-duplicate$ -- 73
-empty$ -- 117
-format.name$ -- 106
-if$ -- 446
-int.to.chr$ -- 1
-int.to.str$ -- 5
-missing$ -- 4
-newline$ -- 34
-num.names$ -- 12
-pop$ -- 28
+            657 strings with 8004 characters,
+and the built_in function-call counts, 5737 in all, are:
+= -- 428
+> -- 399
+< -- 6
++ -- 151
+- -- 120
+* -- 463
+:= -- 976
+add.period$ -- 58
+call.type$ -- 15
+change.case$ -- 29
+chr.to.int$ -- 14
+cite$ -- 16
+duplicate$ -- 273
+empty$ -- 478
+format.name$ -- 139
+if$ -- 1190
+int.to.chr$ -- 2
+int.to.str$ -- 16
+missing$ -- 12
+newline$ -- 95
+num.names$ -- 45
+pop$ -- 142
 preamble$ -- 1
-purify$ -- 4
+purify$ -- 15
 quote$ -- 0
-skip$ -- 37
+skip$ -- 161
 stack$ -- 0
-substring$ -- 14
-swap$ -- 12
-text.length$ -- 0
+substring$ -- 91
+swap$ -- 50
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 28
-warning$ -- 0
-while$ -- 9
+type$ -- 102
+warning$ -- 1
+while$ -- 34
 width$ -- 0
-write$ -- 68
+write$ -- 214
+(There was 1 error message)
