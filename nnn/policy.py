@@ -34,7 +34,7 @@ class InfoNodePolicy(tfa.policies.tf_policy.TFPolicy):
         """
 
         self.all_nodes = reduce(
-            (lambda flattened_nodes, node: flattened_nodes + [node] + node.subnodes),
+            (lambda flattened_nodes, node_i: flattened_nodes + [node_i] + node_i.subnodes),
             nodes, [])
 
         self._observation_keys_nest = observation_keys_nest

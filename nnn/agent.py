@@ -13,7 +13,7 @@ class InfoNodeAgent(tfa.agents.TFAgent):
     """InfoNodeAgent class
 
     This class performs the following roles:
-    * Builds an `InfoNodePolicy` from pgi
+    * Builds an `InfoNodePolicy` from nnn
     * Trains its policy on experience trajectories collected
 
     Its primary methods are:
@@ -93,7 +93,7 @@ class InfoNodeAgent(tfa.agents.TFAgent):
             info_node_names = self.info_node_policy.info_node_names
 
         prev_loss = self._loss(experience=experience, weights=weights, info_node_names=info_node_names)
-        info_node_losses = prev_loss.extra  # structured as: {info_node.name: scalar_loss for info_node in pgi}
+        info_node_losses = prev_loss.extra  # structured as: {info_node.name: scalar_loss for info_node in nnn}
 
         if only_train_top_k != 0:
             k = min(only_train_top_k, len(info_node_losses))

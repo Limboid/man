@@ -15,11 +15,11 @@ class InfoNode(Node):
     expose learning functions `train` and `loss`.
 
     While all `Node` objects may modify arbitrary properties of themselves and other info_node_names,
-    the `InfoNode` also maintains two specific properties:
+    the `InfoNode` also maintains three specific properties:
     * `LATENT`: `NestedTensor` containing its Bayesian-modeled latent variable.
-    * `TARGET_LATENTS`: A list of 2-tuples of a 0-dimesnional `Tensor` and a `NestedTensor`s identifying
+    * `TARGET_LATENTS`: A list of 2-tuples of a 0-dimensional `Tensor` and a `NestedTensor`s identifying
             probabilistic energy and value of latent set points.
-    * `ENERGY`: Probabilistic energy of latent (0-dimensional `Tensor`). Also representitive of
+    * `ENERGY`: Probabilistic energy of latent (0-dimensional `Tensor`). Also representative of
             intrinsic loss. Used for weighting training replay.
     """
 
@@ -39,10 +39,10 @@ class InfoNode(Node):
                 `LATENT`, or `TARGET_LATENTS`.
             parent_names: Names of parent `Node`'s, if any, that this `InfoNode` reads latent states
                 from and possibly also biases by setting their `TARGET_LATENT` state. If `None`, defaults
-                to `pgi.functions.f_parent_no_parents`.
+                to `nnn.functions.f_parent_no_parents`.
 
                 Since the graph must be static to be optimized, please invoke the `build` method with
-                all this `InfoNode`'s parents' python objects. This gives each `InfoNode` an oppertunity
+                all this `InfoNode`'s parents' python objects. This gives each `InfoNode` an opportunity
                 to allocate its particular parent-`TARGET_LATENT` interaction slot to prevent data collisions.
             latent_spec: TensorSpec nest. The structure of this `InfoNode`'s latent which may be observed
                 by other `InfoNode`'s. The `location_spec` is also used to initialize this `InfoNode`'s
