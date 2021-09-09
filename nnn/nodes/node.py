@@ -1,122 +1,37 @@
-from __future__ import annotations
+from typing import List, Tuple, Any, Mapping
 
-from typing import Optional, List, Text, Mapping
-
-import tensorflow as tf
-
-from ..utils import types as ts
+from nnn.connections import Connection
+from nnn.connections.port import Port
+from nnn.utils.sanitize import ensure_unique
 
 
 class Node:
-    """Node base class
 
-    This class provides the following variables for use by other `Node` objects and the `InfoNodeAgent`:
-    * state_spec: a nested structure specifying the tensor shapes of its state used during training/inference.
-    * initial_state: an initial state to pass in during training/inference.
-    """
+    def __init__(self,
+                 ports: List[Port],
+                 name: str = None):
+        """Base initializer for `Node`.
 
-    _UNIQUE_NAME_COUNTER = {}
-
-    def __init__(
-            self,
-            state_spec: ts.NestedTensorSpec,
-            subnodes: Optional[List[Node]] = None,
-            name: Optional[Text] = 'Node'):
-        """Meant to be called by subclass constructors.
+        Note:
+            Child `Node`'s should use this method to declare their port attributes.
 
         Args:
-            state_spec: the nested structure of variables to associate
-                with this `Node` during training/inference.
-            name: node name to attempt to use for variable scoping.
-            subnodes: `Node` objects that are owned by this node.
+            ports: The ports that this node supports. Usually 'statically' known.
+            name: Name of node.
         """
-        self._state_spec = state_spec
-        self._name = self._make_name_unique(name)
-        self._subnodes = subnodes if subnodes is not None else list()
+        if name is None:
+            name = 'node'
 
-    def bottom_up(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
-        """Perception
+        self.ports = ports
+        self.name = ensure_unique(name)
+        self.built = False
 
-        Generally used to observe information from parents and make appropriate internal
-        state changes. However, nodes can arbitrarily alter data allowing organ nodes to
-        competitively consume energy from energy-producing nodes.
+    def build(self,
+              incoming_connections: Mapping[Port, List[Connection]],
+              outgoing_connections: Mapping[Port, List[Connection]]):
+        self.built = True
 
-        Args:
-            states: states of all nodes in the InfoNodePolicy
-
-        Returns:
-            updated states dict containing all nodes in the InfoNodePolicy
-        """
+    def __call__(self,
+                 incoming_values: Mapping[Port, Mapping[Connection, Any]]) \
+            -> Mapping[Port, Mapping[Connection, Any]]:
         pass
-
-    def top_down(self, states: Mapping[Text, ts.NestedTensor]) -> Mapping[Text, ts.NestedTensor]:
-        """Action
-
-        Generally used to make demands to parent nodes. However, nodes can arbitrarily
-        alter data allowing organ nodes to competitively consume energy from energy-producing
-        nodes. Loss for this round should be assigned into the `states` slot for this node.
-
-                Args:
-                    states: states of all nodes in the InfoNodePolicy
-
-                Returns:
-                    new states for all nodes in the InfoNodePolicy
-                """
-        pass
-
-    def initial_state(self, batch_size: Optional[ts.Int]) -> ts.NestedTensor:
-        """
-
-        Args:
-            batch_size: Tensor or constant: size of the batch dimension. Can be None
-                in which case no dimensions gets added.
-
-        Returns:
-            `Nested` structure of `Tensor`s to initialize this `Node`'s state with
-                during training/inference
-        """
-
-        if batch_size is None:
-            shape_fn = (lambda x: x)
-        else:
-            shape_fn = (lambda x: (batch_size,) + x)
-
-        return tf.nest.map_structure(shape_fn, self.state_spec)
-
-    @property
-    def state_spec(self):
-        return self.state_spec
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def subnodes(self):
-        return self._subnodes
-
-    @classmethod
-    def _make_name_unique(cls, name):
-        """Sequentially suffixes names. Non-idempotent method to ensure no name collisions.
-
-        Example:
-            >>> node = Node()
-            >>> node._make_name_unique('Node')
-            'Node1'
-            >>> node._make_name_unique('Node')
-            'Node2'
-            >>> node._make_name_unique('Node')
-            'Node3'
-            >>> node._make_name_unique('Node1')
-            'Node11'
-
-        Args:
-            name: Node instance name to make unique.
-
-        Returns: unique name
-        """
-        if name in Node._UNIQUE_NAME_COUNTER:
-            Node._UNIQUE_NAME_COUNTER[name] += 1
-        else:
-            Node._UNIQUE_NAME_COUNTER[name] = 1
-        return name + str(Node._UNIQUE_NAME_COUNTER[name])
