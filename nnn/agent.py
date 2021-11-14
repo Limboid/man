@@ -7,7 +7,7 @@ maybe not framework agnostic
 from typing import Mapping, List, Iterable, Union, Callable, NoReturn
 
 from nnn.utils.nest import map_nested
-from nnn.utils.types import NNNState, NodeState
+from nnn.utils.types import NNNState, NodeState, Nested
 from nnn.nnn import NNN
 from nnn.nodes import Node
 
@@ -27,24 +27,11 @@ class Agent:
 
 
     def __call__(self,
-                 inputs,
-                 state=None,
-                 *nnn_args,
-                 **nnn_kwargs):
-
-        def __call__(self, state: NNNState, **hparam_overrides) -> NNNState:
-            """Updates `state`. This is the primary user-facing function of `NNN`.
-
-            Args:
-                state: A `NNNState` structure containing the internal state of
-                    the network after the previous update step.
-                **hparam_overrides: A `dict` of overrides to temporarily apply
-                    to hparams (such as 'internal_updates') for this function call.
-
-            Returns:
-                Returns the updated `state`.
-            """
-
+                 inputs: Nested,
+                 state: NNNState = None,
+                 training: bool = False,
+                 hidden_updates: int = 1,
+                 **hparam_overrides) -> Nested:
             # build temporary hparams structure
             tmp_hparams = self.hparams.copy()
             if hparam_overrides is not None and len(hparam_overrides) > 0:
