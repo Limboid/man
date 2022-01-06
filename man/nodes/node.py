@@ -1,8 +1,8 @@
 from typing import List, Tuple, Any, Mapping
 
-from nnn.connections import Connection
-from nnn.connections.port import Port
-from nnn.utils.sanitize import ensure_unique
+from man.connections import Connection
+from man.connections.port import Port
+from man.utils.sanitize import ensure_unique
 
 
 class Node:

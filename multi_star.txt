@@ -1,0 +1,26 @@
+# Multi-star
+
+Dynamic routing, open-ended architectures, multi-task, multi-modal, multi-agent, multi-*
+
+## Single parallel module pool approach:
+
+Pool: Collection of modules and associated forward and train gates. Compositely maps dicts of Tensors (tensor can be numerical, boolean, string, or other type). Returns a list or maybe a set of Tensors for each output key (i.e.: if multiple modules write to the same output, it is a list)
+
+Module: internal processing component. pytorch lightning style
+
+Forward/train gate: function that determines if a module will be active on a given forward/train step. Can be composed
+
+## Growing network of experts
+
+The previous approach cannot handle arbitrary directed network of expert topologies.
+
+The Network of Experts (NoE) is made of nodes. The NoE grows/prunes connections between nodes at train time. Each node has a forward/train gate that decides whether or not to do forward/train steps at forward/train time. The NoE also does basic graph optimization by not asking internal nodes is they want to activate if all peripheral nodes of a subnetwork have indicated they will not. The NoE might store an individual training buffer for each node. Salina can handle that.
+
+The NoE can grow nodes automatically. It should grow based on the structure of the data (ie. select conv, rnn, transformer, dense automatically)
+
+To add a new task, add an output node and specify the output_spec. The NoE will learn a best connection.
+
+Gating enables:
+- machine teaching (the gates decide what is worth training on)
+- sparse MoE, and NoE forward and backpropagation
+

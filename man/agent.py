@@ -7,9 +7,9 @@ maybe not framework agnostic
 from typing import Mapping, List, Iterable, Union, Callable, NoReturn
 
 from nnn.utils.nest import map_nested
-from nnn.utils.types import NNNState, NodeState, Nested
-from nnn.nnn import NNN
-from nnn.nodes import Node
+from man.utils.types import NNNState, NodeState, Nested
+from man.nnn import NNN
+from man.nodes import Node
 
 
 class Agent:

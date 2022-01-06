@@ -2,7 +2,7 @@
 
 from typing import List, Optional, Callable, Mapping, Iterable
 
-from nnn.utils.types import Nested, NestedTensor, FloatLike, Tensor
+from man.utils.types import Nested, NestedTensor, FloatLike, Tensor
 
 
 def map_nested(func, *nests, **kwargs):

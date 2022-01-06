@@ -5,7 +5,7 @@ from __future__ import print_function
 import sys
 sys.path.insert(0, "//")
 
-import nnn
+import man
 
 import tensorflow as tf
 import tf_agents as tfa

@@ -1,8 +1,8 @@
 import itertools
 from typing import List, Callable
 
-from nnn.connections import Connection
-from nnn.nodes import Node
+from man.connections import Connection
+from man.nodes import Node
 
 
 def make_chained_bottom_up_connections(nodes: List[Node]) -> List[Connection]:

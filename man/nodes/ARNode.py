@@ -1,9 +1,9 @@
 from collections import Mapping
 from typing import Any, List
 
-from nnn.connections import Connection
-from nnn.connections.port import Port
-from nnn.nodes import Node
+from man.connections import Connection
+from man.connections.port import Port
+from man.nodes import Node
 
 
 class ARNode(Node):

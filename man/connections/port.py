@@ -1,5 +1,5 @@
-from nnn.utils.types import Nested
-from nnn.utils.sanitize import ensure_unique
+from man.utils.types import Nested
+from man.utils.sanitize import ensure_unique
 
 
 class Port:

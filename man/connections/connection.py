@@ -1,5 +1,5 @@
-from nnn.connections.port import Port
-from nnn.nodes.node import Node
+from man.connections.port import Port
+from man.nodes.node import Node
 
 class Connection:
 

@@ -1,7 +1,7 @@
 from typing import List, Mapping, Any
 
-from nnn.nodes import Node
-from nnn.connections import Connection
+from man.nodes import Node
+from man.connections import Connection
 
 
 NNNState = Mapping[Connection, Any]
