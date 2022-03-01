@@ -1,11 +1,14 @@
 # Node Neural Network (NNN)
 
+:construction: **This repository is under construction.** :construction: Stable release coming this Summer 2022.
+
+Want to contribute? Check out the GitHub container repository [Limboid/the-artificial-ecosystem](https://github.com/Limboid/the-artificial-ecosystem) for this project.
+
 ## Dir structure
 
 - examples
 - nnn
-  - nodes
-    -
+  - ## nodes
   - utils
   - nnn.py
   - agent.py: manages training,
@@ -16,25 +19,7 @@ tsalib, tstanly,
 
 ---
 
-layout: page
-title: The Multi-Agent Network
 description: Datasets, environments, and algorithms for multi-agent systems.
-img:
-importance: 2
-category: personal
-
-hidden: true
-sort_order: 300
-
-date: 2022-02-12
-work_date: Oct 2021 – Feb 2022
-bullet_points: >
-
-  <ul>
-      <li>  </li>
-      <li>  </li>
-  </ul>
----
 
 The challenge is fusing them all togethor:
 
